@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=config
+comment0.target=void\ init(javax.servlet.ServletConfig)
+comment0.text=\r\n\ this\ life-cycle\ method\ is\ invoked\ when\ this\ servlet\ is\ first\ accessed\r\n\ by\ the\ client\r\n
+comment1.params=request\ response
+comment1.target=void\ doGet(javax.servlet.http.HttpServletRequest,\ javax.servlet.http.HttpServletResponse)
+comment1.text=\r\n\ handles\ HTTP\ GET\ request\r\n
+comment2.params=request\ response
+comment2.target=void\ doPost(javax.servlet.http.HttpServletRequest,\ javax.servlet.http.HttpServletResponse)
+comment2.text=\r\n\ handles\ HTTP\ POST\ request\r\n
+comment3.params=
+comment3.target=void\ destroy()
+comment3.text=\r\n\ this\ life-cycle\ method\ is\ invoked\ when\ the\ application\ or\ the\ server\r\n\ is\ shutting\ down\r\n
+numComments=4
