@@ -22,7 +22,7 @@ public class Server {
 
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "HEY MOTHERFUCKER THIS SHIT WORKS OK?";
+            String response = "Server Works";
             JSONObject WHATEVER = new JSONObject();
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
