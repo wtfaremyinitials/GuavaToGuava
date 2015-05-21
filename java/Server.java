@@ -11,19 +11,39 @@ import com.sun.net.httpserver.HttpServer;
 
 public class Server {
 
-    ArrayList<Game> games = new ArrayList<Game>();
-    
+    static ArrayList<String> games = new ArrayList<String>();
+
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/games/create", new CreateGame());
+        server.createContext("/games", new GameArray());
         server.setExecutor(null); // creates a default executor
         server.start();
     }
 
+    //converts the gameID into a string and returns it
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "Server Works";
-            JSONObject WHATEVER = new JSONObject();
+            int gameID = Game.getID();
+            String response = new Integer(gameID).toString();
+            games.add(new Integer(gameID).toString());
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+
+    
+    //converts the array list of games into a string and returns it to the server
+    static class GameArray implements HttpHandler {
+        public void handle(HttpExchange t) throws IOException {
+            String gameIDs = "";
+            for (String str : games)
+            {
+                gameIDs += str + "\n";
+            }
+            String response = gameIDs;  
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
