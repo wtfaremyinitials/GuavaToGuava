@@ -1,9 +1,9 @@
-import JSONObject.JSONObject;
+import JSONObject.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -11,7 +11,7 @@ import com.sun.net.httpserver.HttpServer;
 
 public class Server {
 
-    static ArrayList<String> games = new ArrayList<String>();
+    static HashMap<String,Game> games = new HashMap<String,Game>();
 
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
@@ -25,8 +25,8 @@ public class Server {
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
             int gameID = Game.getID();
-            String response = new Integer(gameID).toString();
-            games.add(new Integer(gameID).toString());
+            String response = gameID + ""; 
+            games.put(response, new Game());
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
@@ -36,14 +36,13 @@ public class Server {
 
     
     //converts the array list of games into a string and returns it to the server
+    
+    //Brady if you are feeling especially self-loathing, manually create JSON
     static class GameArray implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String gameIDs = "";
-            for (String str : games)
-            {
-                gameIDs += str + "\n";
-            }
-            String response = gameIDs;  
+            String response = new JSONArray(games.keySet()).toString(); 
+            System.out.print(games.keySet());
+            if (response == null || response.equals("")){ response = "null"; }
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
