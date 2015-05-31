@@ -10,7 +10,7 @@ public class Game
      */
     public Game()
     {
-        deck = new Deck();
+        deck = new Deck("answers");
         dealCards();
     }
     
