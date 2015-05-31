@@ -1,32 +1,22 @@
-
 import java.util.ArrayList;
-/**
- * Write a description of class Game here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Player
 {
     // instance variables - replace the example below with your own
-
-
+    ArrayList<Card> playerCards;
     /**
      * Constructor for objects of class Game
      */
     public Player()
     {
-        // initialise instance variables
+        playerCards = new ArrayList<Card>();
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        return 1;
+    public void takeCard(Card card){
+        Deck.cards.add(card);
     }
+
+    public void getPlayerCards(int playerID) {
+
+    }
+
 }
