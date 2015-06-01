@@ -84,6 +84,10 @@ public class JSONArray {
      */
     private final ArrayList<Object> myArrayList;
 
+    public ArrayList<Object> getArrayList() {
+        return this.myArrayList;
+    }
+    
     /**
      * Construct an empty JSONArray.
      */

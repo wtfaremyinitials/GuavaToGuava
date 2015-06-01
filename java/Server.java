@@ -24,13 +24,13 @@ public class Server {
     //converts the gameID into a string and returns it
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            int gameID = Game.getID();
-            String response = gameID + ""; 
-            games.put(response, new Game());
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+            //int gameID = Game.getID();
+           // String response = gameID + ""; 
+            //games.put(response, new Game());
+            //t.sendResponseHeaders(200, response.length());
+           // OutputStream os = t.getResponseBody();
+            //os.write(response.getBytes());
+           // os.close();
         }
     }
 
