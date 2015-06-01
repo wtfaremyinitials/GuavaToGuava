@@ -9214,7 +9214,7 @@ process.nextTick = function (fun) {
         }
     }
     queue.push(new Item(fun, args));
-    if (!draining) {
+    if (queue.length === 1 && !draining) {
         setTimeout(drainQueue, 0);
     }
 };
@@ -14004,6 +14004,8 @@ Duplexify.prototype._finish = function(cb) {
   this.emit('preend')
   onuncork(this, function() {
     end(self._forwardEnd && self._writable, function() {
+      // haxx to not emit prefinish twice
+      if (self._writableState.prefinished === false) self._writableState.prefinished = true
       self.emit('prefinish')
       onuncork(self, cb)
     })
@@ -34705,14 +34707,14 @@ var GuavasToGuavas = (function (_React$Component) {
                 null,
                 React.createElement(
                     'h1',
-                    { onClick: function () {
+                    { className: 'home-buttons', onClick: function () {
                             return _this2.handleJoinGame();
                         } },
                     'Join Game'
                 ),
                 React.createElement(
                     'h1',
-                    { onClick: function () {
+                    { className: 'home-buttons', onClick: function () {
                             return _this2.handleCreateGame();
                         } },
                     'Create Game'
@@ -34827,7 +34829,7 @@ var Hand = (function (_React$Component3) {
     return Hand;
 })(React.Component);
 
-React.render(React.createElement(GuavasToGuavas, null), document.body);
+React.render(React.createElement(GuavasToGuavas, null), document.getElementById('game'));
 
 // get('/games/', status => this.setState(status));
 
