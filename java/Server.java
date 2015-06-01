@@ -68,13 +68,16 @@ public class Server {
         public void handle(HttpExchange t) throws IOException {
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
             int playerId = Integer.parseInt(hm.get("pid"));
-            String response = "";
+            JSONObject jsobj = new JSONObject();
+            JSONArray playersArray = new JSONArray();
+            JSONArray cardsArray   = new JSONArray();    
+            jsobj.putOpt("players", playersArray);
+            jsobj.putOpt("cards",   cardsArray);
+            String response = jsobj.toString();
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
-            
-            
         }
     }
 
