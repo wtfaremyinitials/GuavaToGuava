@@ -34636,7 +34636,7 @@ var keys = function keys(obj) {
 var BASE_API_URL = '/api';
 var get = function get(endpoint, params, cb) {
     params = keys(params).reduce(function (o, n) {
-        o + n + '=' + params[n] + '&';
+        return o + n + '=' + params[n] + '&';
     }, '?');
     params = params.substr(0, params.length - 1);
     require('got')(BASE_API_URL + endpoint + params, function (res) {
@@ -34690,8 +34690,8 @@ var GuavasToGuavas = (function (_React$Component) {
                 { className: this.state.players[this.state.pid].czar ? 'isczar' : 'isplayer' },
                 React.createElement(Scoreboard, { players: this.state.players }),
                 React.createElement('br', null),
-                React.createElement(Hand, { hand: this.state.hand, chooseCard: function () {
-                        return _this.handleChooseCard();
+                React.createElement(Hand, { hand: this.state.hand, chooseCard: function (card) {
+                        return _this.handleChooseCard(card);
                     } })
             );
         }
@@ -34745,7 +34745,8 @@ var GuavasToGuavas = (function (_React$Component) {
     }, {
         key: 'handleChooseCard',
         value: function handleChooseCard(cid) {
-            get('/games/' + gid + '/choose', { cid: cid, pid: this.state.pid }, function () {});
+            alert(cid);
+            get('/games/' + this.state.gid + '/choose', { cid: cid, pid: this.state.pid }, function () {});
         }
     }]);
 
@@ -34798,21 +34799,25 @@ var Hand = (function (_React$Component3) {
     _createClass(Hand, [{
         key: 'render',
         value: function render() {
+            var _this5 = this;
+
             return React.createElement(
                 'ul',
                 null,
-                this.props.hand.map(this.renderCard.bind(this))
+                this.props.hand.map(function (hand) {
+                    return _this5.renderCard(hand);
+                })
             );
         }
     }, {
         key: 'renderCard',
         value: function renderCard(cid) {
-            var _this5 = this;
+            var _this6 = this;
 
             return React.createElement(
                 'li',
                 { key: answers[cid], onClick: function () {
-                        return _this5.props.chooseCard(cid);
+                        return _this6.props.chooseCard(cid);
                     } },
                 answers[cid]
             );

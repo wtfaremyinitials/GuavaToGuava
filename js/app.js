@@ -4,7 +4,7 @@ var keys = obj => Object.keys(obj);
 
 var BASE_API_URL = '/api';
 var get = function(endpoint, params, cb) {
-    params = keys(params).reduce((o, n) => { o + n + '=' + params[n] + '&' }, '?');
+    params = keys(params).reduce((o, n) => o + n + '=' + params[n] + '&' , '?');
     params = params.substr(0, params.length - 1);
     require('got')(BASE_API_URL + endpoint + params, res => JSON.parse(res));
 };
@@ -47,7 +47,7 @@ class GuavasToGuavas extends React.Component {
             <div className={ this.state.players[this.state.pid].czar ? 'isczar' : 'isplayer' }>
                 <Scoreboard players={ this.state.players } />
                 <br />
-                <Hand hand={ this.state.hand } chooseCard={ () => this.handleChooseCard() } />
+                <Hand hand={ this.state.hand } chooseCard={ card => this.handleChooseCard(card) } />
             </div>
         );
     }
@@ -74,7 +74,8 @@ class GuavasToGuavas extends React.Component {
     }
     
     handleChooseCard(cid) {
-        get('/games/' + gid + '/choose', { cid, pid: this.state.pid }, () => {});
+        alert(cid);
+        get('/games/' + this.state.gid + '/choose', { cid, pid: this.state.pid }, () => {});
     }
     
 }
@@ -108,7 +109,7 @@ class Hand extends React.Component {
     render() {
         return (
             <ul>
-                { this.props.hand.map(this.renderCard.bind(this)) }
+                { this.props.hand.map((hand) => this.renderCard(hand)) }
             </ul>
         );
     }
