@@ -3,12 +3,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-/**
- * Write a description of class Deck here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
 public class Deck
 {
     // instance variables - replace the example below with your own
@@ -21,17 +16,17 @@ public class Deck
     {
         JSONArray read = null;
         try {
-             read = new JSONArray(readFile("../" + type + ".json"));
+            read = new JSONArray(readFile("../" + type + ".json"));
         } catch(Exception e) { e.printStackTrace(); }
         cards = new ArrayList<Card>();
         for(Object o : read.getArrayList())
             cards.add(new Card((String) o));
     }
-    
+
     public Card dealCard() {
         return cards.remove(0);
     }
-    
+
     private String readFile(String fileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         try {
@@ -47,6 +42,6 @@ public class Deck
         } finally {
             br.close();
         }
-}
+    }
 
 }
