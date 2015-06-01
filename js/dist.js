@@ -34635,12 +34635,24 @@ var keys = function keys(obj) {
 
 var BASE_API_URL = '/api';
 var get = function get(endpoint, params, cb) {
-    var query = keys(params).reduce(function (o, n) {
-        n = o + n + '=' + params[n] + '&';
+    params = keys(params).reduce(function (o, n) {
+        o + n + '=' + params[n] + '&';
     }, '?');
-
-    require('got')(BASE_API_URL + endpoint + query);
+    params = params.substr(0, params.length - 1);
+    require('got')(BASE_API_URL + endpoint + params, function (res) {
+        return JSON.parse(res);
+    });
 };
+
+var repeat = function repeat(cb, interval) {
+    cb();
+    setInterval(cb, interval);
+};
+
+var answers = ['Hello', 'World', 'foo', 'bar', 'baz'];
+var questions = [];
+
+// ref.setState({ gid: 1, pid: 0, players: [{ name: 'Will', score: 4, czar: true }, { name: 'Brady', score: 3, czar: false}], hand: [0, 1, 2]  })
 
 var GuavasToGuavas = (function (_React$Component) {
     function GuavasToGuavas(props) {
@@ -34650,7 +34662,8 @@ var GuavasToGuavas = (function (_React$Component) {
         this.state = {
             players: [],
             hand: [],
-            id: null
+            pid: null,
+            gid: null
         };
     }
 
@@ -34659,26 +34672,158 @@ var GuavasToGuavas = (function (_React$Component) {
     _createClass(GuavasToGuavas, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            get('/games/', function () {
-                console.log('woot');
-            });
+            window.ref = this;
+            repeat(function () {}, 1000);
         }
     }, {
         key: 'render',
         value: function render() {
+            return this.state.gid ? this.renderGame() : this.renderMenu();
+        }
+    }, {
+        key: 'renderGame',
+        value: function renderGame() {
+            var _this = this;
+
+            return React.createElement(
+                'div',
+                { className: this.state.players[this.state.pid].czar ? 'isczar' : 'isplayer' },
+                React.createElement(Scoreboard, { players: this.state.players }),
+                React.createElement('br', null),
+                React.createElement(Hand, { hand: this.state.hand, chooseCard: function () {
+                        return _this.handleChooseCard();
+                    } })
+            );
+        }
+    }, {
+        key: 'renderMenu',
+        value: function renderMenu() {
+            var _this2 = this;
+
             return React.createElement(
                 'div',
                 null,
-                React.createElement(Scoreboard, null),
-                React.createElement(Table, null),
-                React.createElement(Hand, null)
+                React.createElement(
+                    'h1',
+                    { onClick: function () {
+                            return _this2.handleJoinGame();
+                        } },
+                    'Join Game'
+                ),
+                React.createElement(
+                    'h1',
+                    { onClick: function () {
+                            return _this2.handleCreateGame();
+                        } },
+                    'Create Game'
+                )
             );
+        }
+    }, {
+        key: 'handleJoinGame',
+        value: function handleJoinGame() {
+            this.joinGame(prompt('Enter the game ID'), prompt('Enter your name'));
+        }
+    }, {
+        key: 'handleCreateGame',
+        value: function handleCreateGame() {
+            var _this3 = this;
+
+            get('/games/create', {}, function (err, gid) {
+                return _this3.joinGame(gid, prompt('Enter your name'));
+            });
+        }
+    }, {
+        key: 'joinGame',
+        value: function joinGame(gid, name) {
+            var _this4 = this;
+
+            get('/games/' + gid + '/join', { name: name }, function (err, pid) {
+                return _this4.setState({ pid: pid });
+            });
+        }
+    }, {
+        key: 'handleChooseCard',
+        value: function handleChooseCard(cid) {
+            get('/games/' + gid + '/choose', { cid: cid, pid: this.state.pid }, function () {});
         }
     }]);
 
     return GuavasToGuavas;
 })(React.Component);
 
+var Scoreboard = (function (_React$Component2) {
+    function Scoreboard(props) {
+        _classCallCheck(this, Scoreboard);
+
+        _get(Object.getPrototypeOf(Scoreboard.prototype), 'constructor', this).call(this, props);
+    }
+
+    _inherits(Scoreboard, _React$Component2);
+
+    _createClass(Scoreboard, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'ul',
+                null,
+                this.props.players.map(this.renderPlayer)
+            );
+        }
+    }, {
+        key: 'renderPlayer',
+        value: function renderPlayer(player) {
+            return React.createElement(
+                'li',
+                { className: player.czar ? 'czar' : '', key: player.name },
+                player.name,
+                ' - ',
+                player.score
+            );
+        }
+    }]);
+
+    return Scoreboard;
+})(React.Component);
+
+var Hand = (function (_React$Component3) {
+    function Hand(props) {
+        _classCallCheck(this, Hand);
+
+        _get(Object.getPrototypeOf(Hand.prototype), 'constructor', this).call(this, props);
+    }
+
+    _inherits(Hand, _React$Component3);
+
+    _createClass(Hand, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'ul',
+                null,
+                this.props.hand.map(this.renderCard.bind(this))
+            );
+        }
+    }, {
+        key: 'renderCard',
+        value: function renderCard(cid) {
+            var _this5 = this;
+
+            return React.createElement(
+                'li',
+                { key: answers[cid], onClick: function () {
+                        return _this5.props.chooseCard(cid);
+                    } },
+                answers[cid]
+            );
+        }
+    }]);
+
+    return Hand;
+})(React.Component);
+
 React.render(React.createElement(GuavasToGuavas, null), document.body);
+
+// get('/games/', status => this.setState(status));
 
 },{"got":50,"react":241}]},{},[242]);
