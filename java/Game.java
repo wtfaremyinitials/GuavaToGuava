@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class Game
 {
     ArrayList<Player> players = new ArrayList<Player>();
@@ -20,16 +19,22 @@ public class Game
         rotateCzar();
     }
     
-    public void rotateCzar(){
+    public int getCzar(){
+        return czar;
+    }
+    
+    private int rotateCzar(){
         if (czar == players.size()-1){
           czar = 0;
         }
         else {
           czar++;  
         }
+        players.get(czar);
+        return czar;
     }
     
-    public void dealCards()
+    private void dealCards()
     {
         for (Player p: players){
             for (int x = 0; x<5; x++){

@@ -1,16 +1,25 @@
+//imports the JSON library as well as other java libraries
 import JSONObject.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-import java.util.ArrayList;
-
+//imports the Server Library
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+//imports HashMap and ArrayLsit
 import java.util.HashMap;
+import java.util.ArrayList;
 
+/**
+ * This is the server class, this runs and manages the creation of url's for the JSON
+ * data involved in managaing the game,
+ * 
+ * @Brady Africk and Will Franzen
+ * @1.0.0
+ */
 public class Server {
     static ArrayList<Game> games = new ArrayList<Game>();
 
