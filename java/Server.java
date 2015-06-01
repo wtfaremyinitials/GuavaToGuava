@@ -34,7 +34,7 @@ public class Server {
         httpserver.start();
     }
 
-    //converts the gameID into a string and returns it
+    //returns the games and status
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
             games.add(new Game());
