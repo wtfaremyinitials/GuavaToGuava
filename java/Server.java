@@ -69,7 +69,7 @@ public class Server {
         
         private Game game;
         
-        public GetStatus(game) {
+        public GetStatus(Game game) {
             this.game = game;
         }
         
@@ -91,8 +91,8 @@ public class Server {
             for(int i=0; i<game.getPlayers().size(); i++) {
                 JSONObject p = new JSONObject();
                 p.putOpt("name",  game.getPlayers().get(i).getName());
-                p.putOpt("score", );
-                p.putOpt("czar",  );
+                p.putOpt("score", null);
+                p.putOpt("czar",  null);
                 playersArray.add(p);
             }
             
