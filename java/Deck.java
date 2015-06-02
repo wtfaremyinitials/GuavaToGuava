@@ -20,7 +20,7 @@ public class Deck
         } catch(Exception e) { e.printStackTrace(); }
         cards = new ArrayList<Card>();
         for(Object o : read.getArrayList())
-            cards.add(new Card((String), null));
+            cards.add(null);
     }
 
     public Card dealCard() {

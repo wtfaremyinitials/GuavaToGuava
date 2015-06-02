@@ -14,4 +14,6 @@ comment3.text=\n\ This\ is\ the\ dealCards\ method\n\ \n\ This\ method\ deals\ c
 comment4.params=gameID\ playerID
 comment4.target=void\ addPlayer(int,\ int)
 comment4.text=\n\ This\ is\ the\ addPlayer\ method\n\ \n\ This\ adds\ a\ player\ to\ a\ given\ \n\ game\ and\ with\ a\ given\ playerID\n
-numComments=5
+comment5.params=
+comment5.target=java.util.ArrayList\ getPlayers()
+numComments=6

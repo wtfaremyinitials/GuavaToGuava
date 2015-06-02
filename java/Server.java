@@ -93,7 +93,7 @@ public class Server {
                 p.putOpt("name",  game.getPlayers().get(i).getName());
                 p.putOpt("score", null);
                 p.putOpt("czar",  null);
-                playersArray.add(p);
+                playersArray.put(p);
             }
             
             JSONObject jsobj = new JSONObject();
