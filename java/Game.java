@@ -16,17 +16,17 @@ public class Game
     public Game()
     {
         answerDeck = new Deck("answers");          //creates the answers deck
-        questionDeck = new Deck("questions");
-        dealCards();
-        currentQuestion = questionDeck.dealCard();
-        rotateCzar();
+        questionDeck = new Deck("questions");      //creates the questions deck
+        dealCards();                               //deals the cards
+        currentQuestion = questionDeck.dealCard(); //sets the current question equal to the next card
+        rotateCzar();                              //rotates the czar
     }
     
     /**
      * This int returns the czar int because it is private
      */
     public int getCzar(){
-        return czar;
+        return czar;                               //returns the czar
     }
     
     /**
@@ -35,13 +35,13 @@ public class Game
      * it resets it to zero.
      */
     private int rotateCzar(){
-        if (czar == players.size()-1){
-          czar = 0;
+        if (czar == players.size()-1){            //checks if the current czar is the final player
+          czar = 0;                               //if so, the czar is set to zero
         }
         else {
-          czar++;  
+          czar++;                                 //if not, the czar is moved to the next player
         }
-        players.get(czar);
+        players.get(czar);                        //returns the czar
         return czar;
     }
     
@@ -55,9 +55,9 @@ public class Game
      */
     private void dealCards()
     {
-        for (Player p: players){
-            for (int x = 0; x<5; x++){
-              p.takeCard(answerDeck.dealCard());
+        for (Player p: players){                 //goes through each player
+            for (int x = 0; x<5; x++){           //for loop for five cards
+              p.takeCard(answerDeck.dealCard()); //deals the cards
             }
         }
     }
@@ -69,11 +69,11 @@ public class Game
      * game and with a given playerID
      */
     private void addPlayer(int gameID, int playerID){
-        players.add(new Player(""));
+        players.add(new Player(""));              //adds a new player
     }
 
     public ArrayList<Player> getPlayers() {
-        return players;
+        return players;                          //returns the players
     }
 
 
