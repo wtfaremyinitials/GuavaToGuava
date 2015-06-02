@@ -55,8 +55,8 @@ class GuavasToGuavas extends React.Component {
     renderMenu() {
         return (
             <div>
-                <h1 onClick={ () => this.handleJoinGame()   }>Join Game</h1>
-                <h1 onClick={ () => this.handleCreateGame() }>Create Game</h1>
+                <h1 className="home-buttons" onClick={ () => this.handleJoinGame()   }>Join Game</h1>
+                <h1 className="home-buttons" onClick={ () => this.handleCreateGame() }>Create Game</h1>
             </div>
         );
     }
@@ -120,4 +120,4 @@ class Hand extends React.Component {
      
 }
 
-React.render(<GuavasToGuavas/>, document.body);
+React.render(<GuavasToGuavas/>, document.getElementById("game"));
