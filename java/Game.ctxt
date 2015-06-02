@@ -1,13 +1,17 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Game()
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Game\n
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Game\n\ \n\ This\ creates\ the\ new\ answer\ deck,\ creates\ the\ question\ deck,\n\ deals\ the\ cards,\ sets\ the\ current\ question,\ and\ rotates\ the\ czar.\n
 comment1.params=
 comment1.target=int\ getCzar()
+comment1.text=\n\ This\ int\ returns\ the\ czar\ int\ because\ it\ is\ private\n
 comment2.params=
 comment2.target=int\ rotateCzar()
+comment2.text=\n\ This\ int\ rotates\ the\ czar.\n\ If\ it\ is\ equal\ to\ the\ last\ index,\n\ it\ resets\ it\ to\ zero.\n
 comment3.params=
 comment3.target=void\ dealCards()
+comment3.text=\n\ This\ is\ the\ dealCards\ method\n\ \n\ This\ method\ deals\ cards\ to\ each\ player\ \n\ using\ a\ for\ each\ loop\ to\ go\ through\ the\n\ players\ and\ a\ regular\ for\ loop\ to\ set\ \n\ the\ deal\ limit\ to\ 5\ cards\n
 comment4.params=gameID\ playerID
 comment4.target=void\ addPlayer(int,\ int)
+comment4.text=\n\ This\ is\ the\ addPlayer\ method\n\ \n\ This\ adds\ a\ player\ to\ a\ given\ \n\ game\ and\ with\ a\ given\ playerID\n
 numComments=5
