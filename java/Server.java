@@ -37,9 +37,10 @@ public class Server {
     //returns the games and status
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            games.add(new Game());
+            Game g = new Game();
+            games.add(g);
             String response = games.size()-1 + "";
-            httpserver.createContext("/games/" + response + "/status", new GetStatus());
+            httpserver.createContext("/games/" + response + "/status", new GetStatus(g));
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
@@ -65,12 +66,37 @@ public class Server {
 
     //converts the array list of games into a string and returns it to the server
     static class GetStatus implements HttpHandler {
+        
+        private Game game;
+        
+        public GetStatus(game) {
+            this.game = game;
+        }
+        
         public void handle(HttpExchange t) throws IOException {
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
             int playerId = Integer.parseInt(hm.get("pid"));
-            JSONObject jsobj = new JSONObject();
+            Player player = game.getPlayers().get(playerId);
+            
+            JSONArray cardsArray = new JSONArray(); 
+            
+            if(game.getCzar() != playerId) {
+                for(Card c : player.getCards()) {
+                    cardsArray.put(c.getId());
+                } 
+            }    
+                    
             JSONArray playersArray = new JSONArray();
-            JSONArray cardsArray   = new JSONArray();    
+            
+            for(int i=0; i<game.getPlayers().size(); i++) {
+                JSONObject p = new JSONObject();
+                p.putOpt("name",  game.getPlayers().get(i).getName());
+                p.putOpt("score", );
+                p.putOpt("czar",  );
+                playersArray.add(p);
+            }
+            
+            JSONObject jsobj = new JSONObject();
             jsobj.putOpt("players", playersArray);
             jsobj.putOpt("cards",   cardsArray);
             String response = jsobj.toString();

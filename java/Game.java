@@ -47,5 +47,9 @@ public class Game
         players.add(new Player());
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
 
 }
