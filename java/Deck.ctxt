@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.params=type
 comment0.target=Deck(java.lang.String)
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Deck\n
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Deck\n\ \n\ In\ this\ constructor,\ the\ JSON\ array\ is\ created,\ \n\ the\ file\ is\ read,\ the\ arraylist\ is\ created,\ and\ the\ cards\ are\ added\n
 comment1.params=
 comment1.target=Card\ dealCard()
+comment1.text=\n\ This\ method\ removes\ dealt\ cards\ from\ the\ cards\ list\n
 comment2.params=fileName
 comment2.target=java.lang.String\ readFile(java.lang.String)
+comment2.text=\n\ This\ method\ utilizes\ file\ reader\ to\ read\ the\ contents\ of\ a\ passed\ in\ fileName\n\ and\ organize\ it\ into\ JSON\ format.\n
 numComments=3

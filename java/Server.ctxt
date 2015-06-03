@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.params=args
 comment0.target=void\ main(java.lang.String[])
+comment0.text=\n\ This\ method\ initializes\ the\ server,\ on\ http\://localhost\:8000\n
 comment1.params=query
 comment1.target=java.util.HashMap\ queryToMap(java.lang.String)
 numComments=2

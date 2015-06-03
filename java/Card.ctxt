@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.params=str\ num
 comment0.target=Card(java.lang.String,\ int)
-comment0.text=\n\ The\ Card\ constructor\n\ \n\ \n
+comment0.text=\n\ The\ Card\ constructor\n\ \n\ It\ creates\ the\ cards\ text\ and\ it's\ ID\n
 comment1.params=
 comment1.target=java.lang.String\ getText()
+comment1.text=\n\ This\ string\ returns\ the\ text\ of\ the\ card\n
 comment2.params=
 comment2.target=int\ getId()
+comment2.text=\n\ This\ int\ returns\ the\ id\ of\ the\ card\n
 numComments=3

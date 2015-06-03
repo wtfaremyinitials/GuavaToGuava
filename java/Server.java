@@ -21,27 +21,30 @@ import java.util.ArrayList;
  * @1.0.0
  */
 public class Server {
-    static ArrayList<Game> games = new ArrayList<Game>();
+    static ArrayList<Game> games = new ArrayList<Game>();    //creates the games arraylist
 
-    private static HttpServer httpserver;
-
+    private static HttpServer httpserver;                    //creates the http server
+    
+    /**
+     * This method initializes the server, on http://localhost:8000
+     */
     public static void main(String[] args) throws Exception {
-        games.add(new Game());
-        httpserver = HttpServer.create(new InetSocketAddress(8000), 0);
-        httpserver.createContext("/games/create", new CreateGame());
-        httpserver.createContext("/games", new GameArray());
-        httpserver.setExecutor(null); // creates a default executor
-        httpserver.start();
+        games.add(new Game());                                              //creates an empty game to occupy the 0 slot. This is needed for the frond end
+        httpserver = HttpServer.create(new InetSocketAddress(8000), 0);     //creates a new server at http://localhost:8000
+        httpserver.createContext("/games/create", new CreateGame());        //sets the url to create a new game
+        httpserver.createContext("/games", new GameArray());                //sets the url to see active games
+        httpserver.setExecutor(null);                                       //creates a default executor
+        httpserver.start();                                                 //starts the server
     }
 
     //returns the games and status
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            Game g = new Game();
-            games.add(g);
-            String response = games.size()-1 + "";
-            httpserver.createContext("/games/" + response + "/status", new GetStatus(g));
-            t.sendResponseHeaders(200, response.length());
+            Game g = new Game();                                                           //creates a new game "g"
+            games.add(g);                                                                  //adds it to the arraylist
+            String response = games.size()-1 + "";                                         //sets the reponse to the last item in the arraylist
+            httpserver.createContext("/games/" + response + "/status", new GetStatus(g));  //creates the status url using the game ID
+            t.sendResponseHeaders(200, response.length());                                 
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();

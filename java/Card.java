@@ -6,7 +6,7 @@ public class Card
     /**
      * The Card constructor
      * 
-     * 
+     * It creates the cards text and it's ID
      */
     public Card(String str, int num)
     {
@@ -14,12 +14,18 @@ public class Card
         id = num;    //set the ID equal to a passed in int
     }
 
+    /**
+     * This string returns the text of the card
+     */
     public String getText()
     {
-        return text;
+        return text; //returns the text
     }
     
+    /**
+     * This int returns the id of the card
+     */
     public int getId() {
-        return id;
+        return id; //returns the ID
     }
 }

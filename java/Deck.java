@@ -7,40 +7,50 @@ import java.io.IOException;
 public class Deck
 {
     // instance variables - replace the example below with your own
-    static ArrayList<Card> cards;
+    static ArrayList<Card> cards; //creates the static ArrayList Cards
 
     /**
      * Constructor for objects of class Deck
+     * 
+     * In this constructor, the JSON array is created, 
+     * the file is read, the arraylist is created, and the cards are added
      */
     public Deck(String type)
     {
-        JSONArray read = null;
+        JSONArray read = null;                                       //sets the JSON array to null.
         try {
-            read = new JSONArray(readFile("../" + type + ".json"));
+            read = new JSONArray(readFile("../" + type + ".json"));  //reads the JSON file of the type passes in (it is either "answers" or "questions"
         } catch(Exception e) { e.printStackTrace(); }
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<Card>();                               //creates the new arraylist of cards
         for(Object o : read.getArrayList())
-            cards.add(null);
+            cards.add(null);                                         //adds the card
     }
 
+    /**
+     * This method removes dealt cards from the cards list
+     */
     public Card dealCard() {
-        return cards.remove(0);
+        return cards.remove(0); //returns the removal of the card from the deck
     }
 
+    /**
+     * This method utilizes file reader to read the contents of a passed in fileName
+     * and organize it into JSON format.
+     */
     private String readFile(String fileName) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        BufferedReader br = new BufferedReader(new FileReader(fileName));  //creates a new buffered reader br
         try {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
+            StringBuilder sb = new StringBuilder();                        //creates a new string builder
+            String line = br.readLine();                                   //reads the string line
 
             while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
+                sb.append(line);                                           //append the string buffer to the  String "line"
+                sb.append("\n");                                           //append the string buffer to create a new line
+                line = br.readLine();                                      //sets the line equal to the buffer reader's readline
             }
-            return sb.toString();
+            return sb.toString();                                          //returns the String
         } finally {
-            br.close();
+            br.close();                                                    //closes the buffer reader
         }
     }
 
