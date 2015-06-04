@@ -33,6 +33,7 @@ public class Server {
         httpserver = HttpServer.create(new InetSocketAddress(8000), 0);     //creates a new server at http://localhost:8000
         httpserver.createContext("/games/create", new CreateGame());        //sets the url to create a new game
         httpserver.createContext("/games", new GameArray());                //sets the url to see active games
+        httpserver.createContext("/static", new ServeStatic());             //serve static resources to client 
         httpserver.setExecutor(null);                                       //creates a default executor
         httpserver.start();                                                 //starts the server
     }
@@ -108,6 +109,19 @@ public class Server {
             os.close(); 
         }
     }
+    
+    // serves static resources to the client
+    static class ServeStatic implements HttpHandler {
+        public void handle(HttpExchange t) throws IOException {   
+            String url = t.getRequestURI().getQuery().getPath();
+            String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                                                      
+            String response =  readFile("./" + fileName);                                                       
+            t.sendResponseHeaders(200, response.length());                               
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());                                                 
+            os.close();                                                                    
+        }
+    }
 
     public static HashMap<String, String> queryToMap(String query){              
         HashMap<String, String> result = new HashMap<String, String>();           //creates the Hashmap
@@ -120,6 +134,20 @@ public class Server {
             }
         }
         return result;                                                            //returns the result
+    }
+    
+    private String readFile( String file ) throws IOException {
+        BufferedReader reader = new BufferedReader( new FileReader (file));
+        String         line = null;
+        StringBuilder  stringBuilder = new StringBuilder();
+        String         ls = System.getProperty("line.separator");
+
+        while( ( line = reader.readLine() ) != null ) {
+            stringBuilder.append( line );
+            stringBuilder.append( ls );
+        }
+
+        return stringBuilder.toString();
     }
 
 }
