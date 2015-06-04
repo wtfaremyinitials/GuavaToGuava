@@ -113,12 +113,12 @@ public class Server {
     // serves static resources to the client
     static class ServeStatic implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {   
-            String url = t.getRequestURI().getQuery().getPath();
-            String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                                                      
-            String response =  readFile("./" + fileName);                                                       
-            t.sendResponseHeaders(200, response.length());                               
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());                                                 
+            String url = t.getRequestURI().getQuery().getPath();                                   //sets the string url to get the url, querey, and path
+            String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"                                       
+            String response =  readFile("./" + fileName);                                          //reads the hidden folder containt a given filename            
+            t.sendResponseHeaders(200, response.length());                                         
+            OutputStream os = t.getResponseBody();                                                 //send the response
+            os.write(response.getBytes());                                                         //writes the reponse             
             os.close();                                                                    
         }
     }
@@ -137,17 +137,17 @@ public class Server {
     }
     
     private String readFile( String file ) throws IOException {
-        BufferedReader reader = new BufferedReader( new FileReader (file));
-        String         line = null;
-        StringBuilder  stringBuilder = new StringBuilder();
-        String         ls = System.getProperty("line.separator");
+        BufferedReader reader = new BufferedReader( new FileReader (file));       //creates a new buffere reader
+        String         line = null;                                               //sets a string line to null
+        StringBuilder  stringBuilder = new StringBuilder();                       //creates a new string builder
+        String         ls = System.getProperty("line.separator");                 //creates a line separator
 
-        while( ( line = reader.readLine() ) != null ) {
-            stringBuilder.append( line );
-            stringBuilder.append( ls );
+        while( ( line = reader.readLine() ) != null ) {                           //while the line does not equal null...
+            stringBuilder.append( line );                                         //append the string builder with the string line
+            stringBuilder.append( ls );                                           //append the string builder with the line separator
         }
 
-        return stringBuilder.toString();
+        return stringBuilder.toString();                                          //returns the string builer in the form of a string
     }
 
 }
