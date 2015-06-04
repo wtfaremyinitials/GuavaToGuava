@@ -24,7 +24,7 @@ public class Server {
     static ArrayList<Game> games = new ArrayList<Game>();    //creates the games arraylist
 
     private static HttpServer httpserver;                    //creates the http server
-    
+
     /**
      * This method initializes the server, on http://localhost:8000
      */
@@ -113,7 +113,7 @@ public class Server {
     // serves static resources to the client
     static class ServeStatic implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {   
-            String url = t.getRequestURI().getQuery().getPath();                                   //sets the string url to get the url, querey, and path
+            String url = t.getRequestURI().getPath();                                   //sets the string url to get the url, querey, and path
             String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"                                       
             String response =  readFile("./" + fileName);                                          //reads the hidden folder containt a given filename            
             t.sendResponseHeaders(200, response.length());                                         
