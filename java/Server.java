@@ -136,7 +136,7 @@ public class Server {
         return result;                                                            //returns the result
     }
     
-    private String readFile( String file ) throws IOException {
+    public static String readFile( String file ) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader (file));
         String         line = null;
         StringBuilder  stringBuilder = new StringBuilder();
