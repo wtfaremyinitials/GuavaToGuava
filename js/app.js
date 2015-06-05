@@ -118,14 +118,14 @@ class Hand extends React.Component {
         console.log(this.props.hand);
         return (
             <ul>
-                <li className="gameID">{ this.props.hand.map((hand) => this.renderCard(hand)) } </li>
+                <li>{ this.props.hand.map((hand) => this.renderCard(hand)) } </li>
             </ul>
         );
     }
     
     renderCard(cid) {
         console.log(cid);
-        return <li className="gameID" key={ answers[cid] } onClick={ () => this.props.chooseCard(cid) }>{ answers[cid] }</li>;    
+        return <li key={ answers[cid] } onClick={ () => this.props.chooseCard(cid) }>{ answers[cid] }</li>;    
     }   
      
 }

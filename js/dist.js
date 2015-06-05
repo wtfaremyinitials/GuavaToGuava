@@ -9214,7 +9214,7 @@ process.nextTick = function (fun) {
         }
     }
     queue.push(new Item(fun, args));
-    if (!draining) {
+    if (queue.length === 1 && !draining) {
         setTimeout(drainQueue, 0);
     }
 };
@@ -14004,6 +14004,8 @@ Duplexify.prototype._finish = function(cb) {
   this.emit('preend')
   onuncork(this, function() {
     end(self._forwardEnd && self._writable, function() {
+      // haxx to not emit prefinish twice
+      if (self._writableState.prefinished === false) self._writableState.prefinished = true
       self.emit('prefinish')
       onuncork(self, cb)
     })
@@ -34838,7 +34840,7 @@ var Hand = (function (_React$Component3) {
                 null,
                 React.createElement(
                     'li',
-                    { className: 'gameID' },
+                    null,
                     this.props.hand.map(function (hand) {
                         return _this6.renderCard(hand);
                     }),
@@ -34854,7 +34856,7 @@ var Hand = (function (_React$Component3) {
             console.log(cid);
             return React.createElement(
                 'li',
-                { className: 'gameID', key: answers[cid], onClick: function () {
+                { key: answers[cid], onClick: function () {
                         return _this7.props.chooseCard(cid);
                     } },
                 answers[cid]
