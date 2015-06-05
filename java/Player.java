@@ -4,6 +4,7 @@ public class Player
     // instance variables - replace the example below with your own
     ArrayList<Card> playerCards;  //creates the arrayList for the player's hand
     String name;                  //The string for the name of the player
+    int score;
     /**
      * Constructor for objects of class Player
      * 
@@ -13,6 +14,7 @@ public class Player
     {
         playerCards = new ArrayList<Card>();  //creates a new array list for the player's hand
         this.name = name;                     //sets the name equal to the passed in name
+        this.score = 0;
     }
 
     /**
@@ -34,6 +36,14 @@ public class Player
      */
     public String getName() {
         return name; //returns the name
+    }
+    
+    public int getScore() {
+        return score;
+    }
+    
+    public void addPoint() {
+        score++;
     }
 
 }
