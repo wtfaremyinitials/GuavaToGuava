@@ -33,9 +33,9 @@ public class Server {
     public static void main(String[] args) throws Exception {
         games.add(new Game());                                              //creates an empty game to occupy the 0 slot. This is needed for the frond end
         httpserver = HttpServer.create(new InetSocketAddress(8080), 0);     //creates a new server at http://localhost:8000
-        httpserver.createContext("/games/create", new CreateGame());        //sets the url to create a new game
-        httpserver.createContext("/games", new GameArray());                //sets the url to see active games
-        httpserver.createContext("/static", new ServeStatic());             //serve static resources to client 
+        httpserver.createContext("/api/games/create", new CreateGame());        //sets the url to create a new game
+        httpserver.createContext("/api/games", new GameArray());                //sets the url to see active games
+        httpserver.createContext("/", new ServeStatic());             //serve static resources to client 
         httpserver.setExecutor(null);                                       //creates a default executor
         httpserver.start();                                                 //starts the server
     }
@@ -49,8 +49,8 @@ public class Server {
             Game g = new Game();                                                           //creates a new game "g"
             games.add(g);                                                                  //adds it to the arraylist
             String response = games.size()-1 + "";                                         //sets the reponse to the last item in the arraylist
-            httpserver.createContext("/games/" + response + "/status", new GetStatus(g));  //creates the status url using the game ID
-            httpserver.createContext("/games/" + response + "/join", new JoinGame(g));
+            httpserver.createContext("/api/games/" + response + "/status", new GetStatus(g));  //creates the status url using the game ID
+            httpserver.createContext("/api/games/" + response + "/join", new JoinGame(g));
             t.sendResponseHeaders(200, response.length());                                 //send the response
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                 //writes the reponse
@@ -150,7 +150,9 @@ public class Server {
     static class ServeStatic implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {   
             String url = t.getRequestURI().getPath();                                              //sets the string url to get the url, querey, and path
-            String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"                                       
+            String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"   
+            if(fileName.equals(""))
+                fileName = "index.html";
             String response =  readFile("../js/" + fileName);                                      //reads the hidden folder containt a given filename            
             t.sendResponseHeaders(200, response.length());                                         
             OutputStream os = t.getResponseBody();                                                 //send the response
