@@ -34836,6 +34836,7 @@ var Hand = (function (_React$Component3) {
         value: function renderCard(cid) {
             var _this7 = this;
 
+            console.log(cid);
             return React.createElement(
                 'li',
                 { key: answers[cid], onClick: function () {

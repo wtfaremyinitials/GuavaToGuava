@@ -121,6 +121,7 @@ class Hand extends React.Component {
     }
     
     renderCard(cid) {
+        console.log(cid);
         return <li key={ answers[cid] } onClick={ () => this.props.chooseCard(cid) }>{ answers[cid] }</li>;    
     }   
      
