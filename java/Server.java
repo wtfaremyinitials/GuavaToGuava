@@ -28,11 +28,11 @@ public class Server {
     private static HttpServer httpserver;                    //creates the http server
 
     /**
-     * This method initializes the server, on http://localhost:8000
+     * This method initializes the server, on http://localhost:8080
      */
     public static void main(String[] args) throws Exception {
         games.add(new Game());                                              //creates an empty game to occupy the 0 slot. This is needed for the frond end
-        httpserver = HttpServer.create(new InetSocketAddress(8000), 0);     //creates a new server at http://localhost:8000
+        httpserver = HttpServer.create(new InetSocketAddress(8080), 0);     //creates a new server at http://localhost:8000
         httpserver.createContext("/games/create", new CreateGame());        //sets the url to create a new game
         httpserver.createContext("/games", new GameArray());                //sets the url to see active games
         httpserver.createContext("/static", new ServeStatic());             //serve static resources to client 
@@ -117,7 +117,7 @@ public class Server {
         public void handle(HttpExchange t) throws IOException {   
             String url = t.getRequestURI().getPath();                                   //sets the string url to get the url, querey, and path
             String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"                                       
-            String response =  readFile("./" + fileName);                                          //reads the hidden folder containt a given filename            
+            String response =  readFile("../js/" + fileName);                                          //reads the hidden folder containt a given filename            
             t.sendResponseHeaders(200, response.length());                                         
             OutputStream os = t.getResponseBody();                                                 //send the response
             os.write(response.getBytes());                                                         //writes the reponse             

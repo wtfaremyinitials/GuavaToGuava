@@ -35,6 +35,8 @@ public class Game
      * it resets it to zero.
      */
     private int rotateCzar(){
+        if(players.size() == 0)
+            return -1;
         if (czar == players.size()-1){            //checks if the current czar is the final player
           czar = 0;                               //if so, the czar is set to zero
         }
