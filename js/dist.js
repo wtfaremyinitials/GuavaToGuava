@@ -34640,7 +34640,7 @@ var get = function get(endpoint, params, cb) {
     }, '?');
     params = params.substr(0, params.length - 1);
     require('got')(BASE_API_URL + endpoint + params, function (err, data) {
-        return cb(JSON.parse(data));
+        return cb(err, JSON.parse(data));
     });
 };
 
