@@ -77,6 +77,4 @@ public class Game
     public ArrayList<Player> getPlayers() {
         return players;                          //returns the players
     }
-
-
 }
