@@ -34678,6 +34678,7 @@ var GuavasToGuavas = (function (_React$Component) {
 
             window.ref = this;
             repeat(function () {
+                console.log(_this.state);
                 if (!_this.state.gid) return;
                 // get('/games/' + this.state.gid + '/status', { pid: this.state.pid }, (err, status) => this.setState(status));
             }, 1000);
