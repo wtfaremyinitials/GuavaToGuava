@@ -34667,7 +34667,8 @@ var GuavasToGuavas = (function (_React$Component) {
             players: [],
             cards: [],
             pid: null,
-            gid: null
+            gid: null,
+            question: -1
         };
     }
 
@@ -34701,6 +34702,16 @@ var GuavasToGuavas = (function (_React$Component) {
                 'div',
                 { className: (this.state.players[this.state.pid] || { czar: false }).czar ? 'isczar' : 'isplayer' },
                 React.createElement(Scoreboard, { players: this.state.players, gameid: this.state.gid }),
+                React.createElement('br', null),
+                React.createElement(
+                    'h1',
+                    null,
+                    React.createElement(
+                        'b',
+                        null,
+                        this.state.question !== -1 ? this.state.question : '...'
+                    )
+                ),
                 React.createElement('br', null),
                 React.createElement(Hand, { hand: this.state.cards, chooseCard: function (card) {
                         return _this2.handleChooseCard(card);
