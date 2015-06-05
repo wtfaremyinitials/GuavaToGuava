@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Map;
 
 /**
  * This is the server class, this runs and manages the creation of url's for the JSON
@@ -46,12 +47,13 @@ public class Server {
      */
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            Game g = new Game();                                                                //creates a new game "g"
-            games.add(g);                                                                       //adds it to the arraylist
-            String response = games.size()-1 + "";                                              //sets the reponse to the last item in the arraylist
-            httpserver.createContext("/api/games/" + response + "/status", new GetStatus(g));   //creates the status url using the game ID
-            httpserver.createContext("/api/games/" + response + "/join", new JoinGame(g));
-            t.sendResponseHeaders(200, response.length());                                      //send the response
+            Game g = new Game();                                                           //creates a new game "g"
+            games.add(g);                                                                  //adds it to the arraylist
+            String response = games.size()-1 + "";                                         //sets the reponse to the last item in the arraylist
+            httpserver.createContext("/api/games/" + response + "/status", new GetStatus(g));  //creates the status url using the game ID
+            httpserver.createContext("/api/games/" + response + "/join",   new JoinGame(g));
+            httpserver.createContext("/api/games/" + response + "/choose", new ChooseCard(g));
+            t.sendResponseHeaders(200, response.length());                                 //send the response
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                      //writes the reponse
             os.close();                                                                         //closes the response
@@ -90,16 +92,24 @@ public class Server {
         }
 
         public void handle(HttpExchange t) throws IOException {
+            try {
+            
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());                 //creats a dual string HashMap
             int playerId = Integer.parseInt(hm.get("pid"));                                        //creates an int with an id of "pid"
             Player player = game.getPlayers().get(playerId);                                       //creates a player named player from the array of players  
             JSONArray cardsArray = new JSONArray();                                                //creates a JSONArray called cardsArray
 
-            if(game.getCzar() != playerId) {                                                       //If the czar doesnt equal the playerID
+            if(game.getCzar() != playerId && !game.hasChosen(playerId)) {                          //If the czar doesnt equal the playerID
                 for(Card c : player.getCards()) {                                                  //for loop that goes through the players cards
                     cardsArray.put(c.getId());                                                     //puts the card in the array
                 } 
             }    
+            
+            if(game.getCzar() == playerId && game.getIsReadyForCzar()) {
+                for(Card c : game.getSelections()) {                                                  //for loop that goes through the players cards
+                    cardsArray.put(c.getId());                                                     //puts the card in the array
+                } 
+            } 
 
             JSONArray playersArray = new JSONArray();                                              //creates a JSON playersArray
 
@@ -119,6 +129,9 @@ public class Server {
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                         //writes the reponse
             os.close(); 
+             
+             
+            } catch(Exception e) { e.printStackTrace(); }
         }
     }
 
@@ -136,6 +149,33 @@ public class Server {
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());           //creates a new HashMap of strings equal to a query from a request
             game.addPlayer(new Player(hm.get("name")));                                      //greates a new player with the ID name and adds it to the HashMap
             String response = game.getPlayers().size()-1 + "";                               //creates a response with the number of players
+            t.sendResponseHeaders(200, response.length());                                     
+            OutputStream os = t.getResponseBody();                                           //send the response
+            os.write(response.getBytes());                                                   //writes the reponse              
+            os.close();
+        }
+    }
+    
+    static class ChooseCard implements HttpHandler {
+         private Game game;                                                                   //creates a new private game called game      
+
+        public ChooseCard(Game game) {
+            this.game = game;                                                                //sets this new game equal to a passed in one
+        }
+        
+        public void handle(HttpExchange t) throws IOException {
+            HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
+            int cid = Integer.parseInt(hm.get("cid"));
+            int pid = Integer.parseInt(hm.get("pid"));
+            if(pid == game.getCzar()) {
+                game.selectWinner(cid);
+            } else {
+                System.out.println("pid " + pid);
+                System.out.println("cid " + cid);
+                game.selectCard(pid, cid);
+                System.out.println("selected");
+            }
+            String response = "true";                               //creates a response with the number of players
             t.sendResponseHeaders(200, response.length());                                     
             OutputStream os = t.getResponseBody();                                           //send the response
             os.write(response.getBytes());                                                   //writes the reponse              
@@ -177,6 +217,9 @@ public class Server {
         return result;                                                            //returns the result
     }
 
+    /**
+     * This is the public static string that reads files. It is needed to read the JSON data.
+     */
     public static String readFile( String file ) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader (file));       //creates a new buffere reader
         String         line = null;                                               //sets a string line to null

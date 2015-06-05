@@ -1,4 +1,5 @@
 import java.util.ArrayList; //importing ArrayList
+import java.util.Map;
 public class Game
 {
     ArrayList<Player> players = new ArrayList<Player>(); //initializes the player ArrayList
@@ -6,6 +7,7 @@ public class Game
     Deck questionDeck; //creates the question deck
     Card currentQuestion; //creates the current question card
     int czar = -1; //sets the czar index to -1 because it is increased to 0 immediately
+    Card[] selections;
     
     /**
      * Constructor for objects of class Game
@@ -17,9 +19,8 @@ public class Game
     {
         answerDeck = new Deck("answers");          //creates the answers deck
         questionDeck = new Deck("questions");      //creates the questions deck
-        dealCards();                               //deals the cards
-        currentQuestion = questionDeck.dealCard(); //sets the current question equal to the next card
-        rotateCzar();                              //rotates the czar
+        currentQuestion = questionDeck.dealCard(); //sets the current question equal to the next card                              //rotates the czar
+        selections = new Card[3];
     }
     
     /**
@@ -57,10 +58,17 @@ public class Game
      */
     private void dealCards()
     {
-        for (Player p: players){                 //goes through each player
             for (int x = 0; x<5; x++){           //for loop for five cards
-              p.takeCard(answerDeck.dealCard()); //deals the cards
+                dealCard(); //deals the cards
             }
+        
+    }
+    
+    private void dealCard()
+    {
+        for (Player p : players){                 //goes through each player
+              p.takeCard(answerDeck.dealCard()); //deals the cards
+            
         }
     }
     
@@ -72,9 +80,45 @@ public class Game
      */
     public void addPlayer(Player p){
         players.add(p);                          //adds a new player
+        if(players.size() == 3) {
+            dealCards();
+            rotateCzar();
+        }
     }
 
     public ArrayList<Player> getPlayers() {
         return players;                          //returns the players
     }
+    
+    public boolean getIsReadyForCzar() {
+        for(Card c : selections)
+            if(c == null)
+                return false;
+        return true;
+    }
+
+
+    public Card[] getSelections() {
+        return selections;
+    }
+    
+    public void selectCard(int pid, int cid) {
+        selections[pid] = new Card("8==D", cid);
+    }
+    
+    public boolean hasChosen(int pid) {
+        return selections[pid] == null;
+        
+    }
+    
+    public void selectWinner(int cid) {
+        for(int i=0; i<selections.length; i++) {
+            if(selections[i].getId() == cid) {
+                players.get(i).addPoint();
+            }
+        }
+        selections = new Card[players.size()];
+        dealCard();
+    }
+
 }
