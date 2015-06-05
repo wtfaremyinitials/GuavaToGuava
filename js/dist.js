@@ -34832,6 +34832,7 @@ var Hand = (function (_React$Component3) {
         value: function render() {
             var _this6 = this;
 
+            console.log(this.props.hand);
             return React.createElement(
                 'ul',
                 null,

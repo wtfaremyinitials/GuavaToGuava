@@ -115,6 +115,7 @@ class Hand extends React.Component {
     }
     
     render() {
+        console.log(this.props.hand);
         return (
             <ul>
                 <li className="gameID">{ this.props.hand.map((hand) => this.renderCard(hand)) } </li>
