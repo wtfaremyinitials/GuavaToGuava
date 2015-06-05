@@ -6,7 +6,7 @@ var BASE_API_URL = '/api';
 var get = function(endpoint, params, cb) {
     params = keys(params).reduce((o, n) => o + n + '=' + params[n] + '&' , '?');
     params = params.substr(0, params.length - 1);
-    require('got')(BASE_API_URL + endpoint + params, res => JSON.parse(res));
+    require('got')(BASE_API_URL + endpoint + params, res => cb(JSON.parse(res)));
 };
 
 var repeat = function(cb, interval) {
