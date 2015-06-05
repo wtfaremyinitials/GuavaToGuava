@@ -51,7 +51,7 @@ class GuavasToGuavas extends React.Component {
             <div className={ (this.state.players[this.state.pid] || { czar : false }).czar ? 'isczar' : 'isplayer' }>
                 <Scoreboard players={ this.state.players } gameid={ this.state.gid }/>
                 <br />
-                <h1><b>{ (this.state.question !== -1)? this.state.question : '...' }</b></h1>
+                <h1><b>{ (this.state.question !== -1)? questions[this.state.question] : '...' }</b></h1>
                 <br />
                 <Hand hand={ this.state.cards } chooseCard={ card => this.handleChooseCard(card) } />
             </div>
