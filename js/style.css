@@ -1,7 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:400,300,500,700,800);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
 
 body {
-	font: 300 14px/1.8 'Raleway', sans-serif;
+	font: 300 14px/1.8 'Open Sans', sans-serif;
 	background-color: #f2f2f2;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -10,7 +10,7 @@ body {
 }
 
 .body-title {
-	font: 300 44px/1.8 'Raleway', sans-serif;
+	font: 300 44px/1.8 'Open Sans', sans-serif;
 	text-align: center;
 	margin-left: 30%;
 	margin-right: 30%;
@@ -25,26 +25,26 @@ body {
 }
 
 h2 {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	margin-left: 10%;
 	margin-right: 10%;
 	color: black;
 }
 
 p {
-	font: 300 24px/1.8 'Raleway', sans-serif;
+	font: 300 24px/1.8 'Open Sans', sans-serif;
 	margin-left: 12%;
 	margin-right: 10%;
 	color: black;
 }
 
 .link {
-	font: 300 24px/1.8 'Raleway', sans-serif;
+	font: 300 24px/1.8 'Open Sans', sans-serif;
 	color: black;
 }
 
 .home-buttons {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	background-color: white;
 	text-align: center;
 	border: 1px solid black;
@@ -55,7 +55,7 @@ p {
 }
 
 .gameID {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	background-color: white;
 	text-align: center;
 	border: 1px solid black;
@@ -66,7 +66,7 @@ p {
 }
 
 .players {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	background-color: white;
 	text-align: center;
 	border: 1px solid black;
@@ -76,7 +76,7 @@ p {
 }
 
 .home-buttons:hover {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	background-color: black;
 	color: white;
 	text-align: center;
@@ -88,7 +88,7 @@ p {
 }
 
 #nav {
-	font: 300 14px/1.8 'Raleway', sans-serif;
+	font: 300 14px/1.8 'Open Sans', sans-serif;
 	width: 100%;
 	float: left;
 	margin: 0 0 1em 0;
@@ -98,24 +98,23 @@ p {
 	}
 	
 #nav ul {
-	font: 300 14px/1.8 'Raleway', sans-serif;
+	font: 300 14px/1.8 'Open Sans', sans-serif;
 	list-style: none;
 	margin: 0 auto;
 	padding: 0; 
 	}
 	
 #nav li {
-	font: 300 14px/1.8 'Raleway', sans-serif;
+	font: 300 14px/1.8 'Open Sans', sans-serif;
 	float: left; 
 	}
 	
 	
 #nav li a {
-	font: 300 14px/1.8 'Raleway', sans-serif;
+	font: 300 14px/1.8 'Open Sans', sans-serif;
 	display: block;
 	padding: 8px 15px;
 	text-decoration: none;
-	font-weight: bold;
 	color: #000000;
 	border-right: 1px solid #ccc; 
 	}
@@ -128,7 +127,7 @@ p {
 
 
 #score {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	width: 100%;
 	float: inherit;
 	margin: 0px 0px 1px 8px;
@@ -138,7 +137,7 @@ p {
 	}
 	
 #score ul {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	list-style: none;
 	margin: 0 auto;
 	padding: 0px 0px 0px 9px; 
@@ -146,7 +145,7 @@ p {
 	}
 	
 #score li {
-	font: 300 34px/1.8 'Raleway', sans-serif;
+	font: 300 34px/1.8 'Open Sans', sans-serif;
 	float: left; 
 	padding-left: 30px;
 	padding-right: 30px;
