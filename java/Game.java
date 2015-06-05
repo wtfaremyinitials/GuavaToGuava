@@ -19,8 +19,7 @@ public class Game
     {
         answerDeck = new Deck("answers");          //creates the answers deck
         questionDeck = new Deck("questions");      //creates the questions deck
-        currentQuestion = questionDeck.dealCard(); //sets the current question equal to the next card
-        rotateCzar();                              //rotates the czar
+        currentQuestion = questionDeck.dealCard(); //sets the current question equal to the next card                              //rotates the czar
         selections = new ArrayList<Card>();
     }
     
@@ -76,6 +75,7 @@ public class Game
         players.add(p);                          //adds a new player
         if(players.size() == 3) {
             dealCards();
+            rotateCzar();
         }
     }
 
@@ -94,6 +94,15 @@ public class Game
     
     public void selectCard(int pid, int cid) {
         selections.set(pid, new Card(null, cid));
+    }
+    
+    public boolean hasChosen(int pid) {
+        try {
+            return selections.get(pid) != null;
+        } catch(Exception e) {
+              return false;
+        }
+        
     }
     
     public void selectWinner(int cid) {

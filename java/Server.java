@@ -97,7 +97,7 @@ public class Server {
             Player player = game.getPlayers().get(playerId);                                       //creates a player named player from the array of players  
             JSONArray cardsArray = new JSONArray();                                                //creates a JSONArray called cardsArray
 
-            if(game.getCzar() != playerId) {                                                       //If the czar doesnt equal the playerID
+            if(game.getCzar() != playerId && !game.hasChosen(playerId)) {                          //If the czar doesnt equal the playerID
                 for(Card c : player.getCards()) {                                                  //for loop that goes through the players cards
                     cardsArray.put(c.getId());                                                     //puts the card in the array
                 } 
