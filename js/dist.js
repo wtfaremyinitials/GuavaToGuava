@@ -9214,7 +9214,7 @@ process.nextTick = function (fun) {
         }
     }
     queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
+    if (!draining) {
         setTimeout(drainQueue, 0);
     }
 };
@@ -14004,8 +14004,6 @@ Duplexify.prototype._finish = function(cb) {
   this.emit('preend')
   onuncork(this, function() {
     end(self._forwardEnd && self._writable, function() {
-      // haxx to not emit prefinish twice
-      if (self._writableState.prefinished === false) self._writableState.prefinished = true
       self.emit('prefinish')
       onuncork(self, cb)
     })
@@ -34834,7 +34832,6 @@ var Hand = (function (_React$Component3) {
         value: function render() {
             var _this6 = this;
 
-            console.log(this.props.hand);
             return React.createElement(
                 'ul',
                 null,
@@ -34853,7 +34850,6 @@ var Hand = (function (_React$Component3) {
         value: function renderCard(cid) {
             var _this7 = this;
 
-            console.log(cid);
             return React.createElement(
                 'li',
                 { key: answers[cid], onClick: function () {

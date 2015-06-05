@@ -115,7 +115,6 @@ class Hand extends React.Component {
     }
     
     render() {
-        console.log(this.props.hand);
         return (
             <ul>
                 <li>{ this.props.hand.map((hand) => this.renderCard(hand)) } </li>
@@ -124,7 +123,6 @@ class Hand extends React.Component {
     }
     
     renderCard(cid) {
-        console.log(cid);
         return <li key={ answers[cid] } onClick={ () => this.props.chooseCard(cid) }>{ answers[cid] }</li>;    
     }   
      
