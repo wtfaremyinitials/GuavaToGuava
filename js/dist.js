@@ -9214,7 +9214,7 @@ process.nextTick = function (fun) {
         }
     }
     queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
+    if (!draining) {
         setTimeout(drainQueue, 0);
     }
 };
@@ -14004,8 +14004,6 @@ Duplexify.prototype._finish = function(cb) {
   this.emit('preend')
   onuncork(this, function() {
     end(self._forwardEnd && self._writable, function() {
-      // haxx to not emit prefinish twice
-      if (self._writableState.prefinished === false) self._writableState.prefinished = true
       self.emit('prefinish')
       onuncork(self, cb)
     })
@@ -34711,7 +34709,7 @@ var GuavasToGuavas = (function (_React$Component) {
                     React.createElement(
                         'b',
                         null,
-                        this.state.question !== -1 ? this.state.question : '...'
+                        this.state.question !== -1 ? questions[this.state.question] : '...'
                     )
                 ),
                 React.createElement('br', null),
