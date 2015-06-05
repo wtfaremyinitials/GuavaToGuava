@@ -34732,7 +34732,7 @@ var GuavasToGuavas = (function (_React$Component) {
             var _this3 = this;
 
             get('/games/create', {}, function (err, gid) {
-                return _this3.joinGame(gid, prompt('Enter your name'));
+                return _this3.joinGame(gid, prompt('Enter your name!!!!!!!'));
             });
         }
     }, {

@@ -68,7 +68,7 @@ class GuavasToGuavas extends React.Component {
     }
     
     handleCreateGame() {
-        get('/games/create', {}, (err, gid) => this.joinGame(gid, prompt('Enter your name')));
+        get('/games/create', {}, (err, gid) => this.joinGame(gid, prompt('Enter your name!!!!!!!')));
     }
     
     joinGame(gid, name) {
