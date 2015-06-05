@@ -8,7 +8,7 @@ public class Game
     Card currentQuestion; //creates the current question card
     int czar = -1; //sets the czar index to -1 because it is increased to 0 immediately
     Card[] selections;
-    
+
     /**
      * Constructor for objects of class Game
      * 
@@ -83,6 +83,7 @@ public class Game
         if(players.size() == 3) {
             dealCards();
             rotateCzar();
+            changeQuestion();
         }
     }
 
@@ -91,10 +92,11 @@ public class Game
     }
     
     public boolean getIsReadyForCzar() {
+        int missing = 0;
         for(Card c : selections)
             if(c == null)
-                return false;
-        return true;
+                missing++;
+        return missing == 1 || missing == 0;
     }
 
 
@@ -107,18 +109,27 @@ public class Game
     }
     
     public boolean hasChosen(int pid) {
-        return selections[pid] == null;
+        return selections[pid] != null;
         
     }
     
     public void selectWinner(int cid) {
         for(int i=0; i<selections.length; i++) {
-            if(selections[i].getId() == cid) {
+            if(selections[i] != null && selections[i].getId() == cid) {
                 players.get(i).addPoint();
             }
         }
         selections = new Card[players.size()];
         dealCard();
+        rotateCzar();
+        changeQuestion();
     }
 
+    private void changeQuestion() {
+        currentQuestion = questionDeck.dealCard();
+    }
+    
+    public Card getCurrentQuestion() {
+        return currentQuestion;
+    }
 }

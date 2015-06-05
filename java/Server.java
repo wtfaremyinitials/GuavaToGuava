@@ -107,6 +107,7 @@ public class Server {
             
             if(game.getCzar() == playerId && game.getIsReadyForCzar()) {
                 for(Card c : game.getSelections()) {                                                  //for loop that goes through the players cards
+                    if(c == null) continue;
                     cardsArray.put(c.getId());                                                     //puts the card in the array
                 } 
             } 
@@ -124,6 +125,7 @@ public class Server {
             JSONObject jsobj = new JSONObject();                                                   //creates a new jsobj
             jsobj.putOpt("players", playersArray);                                                 //puts players in the playersArray
             jsobj.putOpt("cards",   cardsArray);                                                   //puts players in the cardsArray
+            jsobj.putOpt("question", game.getCurrentQuestion().getId());
             String response = jsobj.toString();                                                    //converts the JSON object to string
             t.sendResponseHeaders(200, response.length());                                         //send the response
             OutputStream os = t.getResponseBody();
@@ -164,6 +166,7 @@ public class Server {
         }
         
         public void handle(HttpExchange t) throws IOException {
+            try {
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
             int cid = Integer.parseInt(hm.get("cid"));
             int pid = Integer.parseInt(hm.get("pid"));
@@ -180,6 +183,7 @@ public class Server {
             OutputStream os = t.getResponseBody();                                           //send the response
             os.write(response.getBytes());                                                   //writes the reponse              
             os.close();
+            } catch(Exception e) { e.printStackTrace(); }
         }
     }
 
