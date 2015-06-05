@@ -9,6 +9,8 @@ var get = function(endpoint, params, cb) {
     require('got')(BASE_API_URL + endpoint + params, res => cb(JSON.parse(res)));
 };
 
+window.get = get;
+
 var repeat = function(cb, interval) {
     cb();
     setInterval(cb, interval);

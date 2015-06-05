@@ -34644,6 +34644,8 @@ var get = function get(endpoint, params, cb) {
     });
 };
 
+window.get = get;
+
 var repeat = function repeat(cb, interval) {
     cb();
     setInterval(cb, interval);
