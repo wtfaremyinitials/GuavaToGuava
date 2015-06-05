@@ -70,7 +70,7 @@ class GuavasToGuavas extends React.Component {
     }
     
     joinGame(gid, name) {
-        get('/games/' + gid + '/join', { name }, (err, pid) => this.setState({ pid }));
+        get('/games/' + gid + '/join', { name }, (err, pid) => this.setState({ gid, pid }));
     }
     
     handleChooseCard(cid) {
