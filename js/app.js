@@ -48,7 +48,7 @@ class GuavasToGuavas extends React.Component {
     renderGame() {
         return (
             <div className={ (this.state.players[this.state.pid] || { czar : false }).czar ? 'isczar' : 'isplayer' }>
-                <Scoreboard players={ this.state.players } />
+                <Scoreboard players={ this.state.players } gameid={ this.state.gid }/>
                 <br />
                 <Hand hand={ this.state.hand } chooseCard={ card => this.handleChooseCard(card) } />
             </div>
@@ -91,9 +91,12 @@ class Scoreboard extends React.Component {
     
     render() {
         return (
-            <ul>
-                { this.props.players.map(this.renderPlayer) }
-            </ul>  
+            <div>
+                <p>Game ID - { this.props.gameid}</p>
+                <ul>
+                    { this.props.players.map(this.renderPlayer) }
+                </ul>  
+            </div>
         );
     }
     

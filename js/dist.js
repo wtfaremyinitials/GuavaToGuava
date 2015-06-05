@@ -34700,7 +34700,7 @@ var GuavasToGuavas = (function (_React$Component) {
             return React.createElement(
                 'div',
                 { className: (this.state.players[this.state.pid] || { czar: false }).czar ? 'isczar' : 'isplayer' },
-                React.createElement(Scoreboard, { players: this.state.players }),
+                React.createElement(Scoreboard, { players: this.state.players, gameid: this.state.gid }),
                 React.createElement('br', null),
                 React.createElement(Hand, { hand: this.state.hand, chooseCard: function (card) {
                         return _this2.handleChooseCard(card);
@@ -34778,9 +34778,19 @@ var Scoreboard = (function (_React$Component2) {
         key: 'render',
         value: function render() {
             return React.createElement(
-                'ul',
+                'div',
                 null,
-                this.props.players.map(this.renderPlayer)
+                React.createElement(
+                    'p',
+                    null,
+                    'Game ID - ',
+                    this.props.gameid
+                ),
+                React.createElement(
+                    'ul',
+                    null,
+                    this.props.players.map(this.renderPlayer)
+                )
             );
         }
     }, {
