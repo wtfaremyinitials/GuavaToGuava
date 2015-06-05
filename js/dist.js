@@ -34755,6 +34755,7 @@ var GuavasToGuavas = (function (_React$Component) {
     }, {
         key: 'handleChooseCard',
         value: function handleChooseCard(cid) {
+            this.setState({ hand: [] });
             get('/games/' + this.state.gid + '/choose', { cid: cid, pid: this.state.pid }, function () {});
         }
     }]);

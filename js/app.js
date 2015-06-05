@@ -78,6 +78,7 @@ class GuavasToGuavas extends React.Component {
     }
     
     handleChooseCard(cid) {
+        this.setState({ hand: [] });
         get('/games/' + this.state.gid + '/choose', { cid, pid: this.state.pid }, () => {});
     }
     
