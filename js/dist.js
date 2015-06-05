@@ -34644,15 +34644,17 @@ var get = function get(endpoint, params, cb) {
     });
 };
 
-window.get = get;
-
 var repeat = function repeat(cb, interval) {
     cb();
     setInterval(cb, interval);
 };
 
-var answers = ['Hello', 'World', 'foo', 'bar', 'baz'];
-var questions = [];
+var answers;require('got')('/answers.json', function (err, data) {
+    return answers = JSON.parse(data);
+});
+var questions;require('got')('/questions.json', function (err, data) {
+    return answers = JSON.parse(data);
+});
 
 // ref.setState({ gid: 1, pid: 0, players: [{ name: 'Will', score: 4, czar: true }, { name: 'Brady', score: 3, czar: false}], hand: [0, 1, 2]  })
 
