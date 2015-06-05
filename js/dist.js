@@ -34653,7 +34653,7 @@ var answers;require('got')('/answers.json', function (err, data) {
     return answers = JSON.parse(data);
 });
 var questions;require('got')('/questions.json', function (err, data) {
-    return answers = JSON.parse(data);
+    return questions = JSON.parse(data);
 });
 
 // ref.setState({ gid: 1, pid: 0, players: [{ name: 'Will', score: 4, czar: true }, { name: 'Brady', score: 3, czar: false}], hand: [0, 1, 2]  })
