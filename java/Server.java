@@ -12,6 +12,8 @@ import com.sun.net.httpserver.HttpServer;
 //imports HashMap and ArrayLsit
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 /**
  * This is the server class, this runs and manages the creation of url's for the JSON
@@ -136,20 +138,12 @@ public class Server {
         return result;                                                            //returns the result
     }
     
-<<<<<<< HEAD
     public static String readFile( String file ) throws IOException {
-        BufferedReader reader = new BufferedReader( new FileReader (file));
-        String         line = null;
-        StringBuilder  stringBuilder = new StringBuilder();
-        String         ls = System.getProperty("line.separator");
-=======
-    private String readFile( String file ) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader (file));       //creates a new buffere reader
         String         line = null;                                               //sets a string line to null
         StringBuilder  stringBuilder = new StringBuilder();                       //creates a new string builder
         String         ls = System.getProperty("line.separator");                 //creates a line separator
->>>>>>> f2c2c463edced61d6a65a401220dec83721a7c27
-
+        
         while( ( line = reader.readLine() ) != null ) {                           //while the line does not equal null...
             stringBuilder.append( line );                                         //append the string builder with the string line
             stringBuilder.append( ls );                                           //append the string builder with the line separator
