@@ -173,10 +173,7 @@ public class Server {
             if(pid == game.getCzar()) {
                 game.selectWinner(cid);
             } else {
-                System.out.println("pid " + pid);
-                System.out.println("cid " + cid);
                 game.selectCard(pid, cid);
-                System.out.println("selected");
             }
             String response = "true";                               //creates a response with the number of players
             t.sendResponseHeaders(200, response.length());                                     

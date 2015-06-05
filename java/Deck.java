@@ -30,7 +30,7 @@ public class Deck
      * This method removes dealt cards from the cards list
      */
     public Card dealCard() {
-        return cards.remove(0); //returns the removal of the card from the deck
+        return cards.remove((int) Math.floor(Math.random() * cards.size())); //returns the removal of the card from the deck
     }
 
     /**
