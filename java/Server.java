@@ -209,6 +209,9 @@ public class Server {
         return result;                                                            //returns the result
     }
 
+    /**
+     * This is the public static string that reads files. It is needed to read the JSON data.
+     */
     public static String readFile( String file ) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader (file));       //creates a new buffere reader
         String         line = null;                                               //sets a string line to null
