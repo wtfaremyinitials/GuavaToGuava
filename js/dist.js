@@ -34695,7 +34695,7 @@ var GuavasToGuavas = (function (_React$Component) {
 
             return React.createElement(
                 'div',
-                { className: this.state.players[this.state.pid].czar ? 'isczar' : 'isplayer' },
+                { className: (this.state.players[this.state.pid] || { czar: false }).czar ? 'isczar' : 'isplayer' },
                 React.createElement(Scoreboard, { players: this.state.players }),
                 React.createElement('br', null),
                 React.createElement(Hand, { hand: this.state.hand, chooseCard: function (card) {
