@@ -70,8 +70,8 @@ public class Game
      * This adds a player to a given 
      * game and with a given playerID
      */
-    private void addPlayer(int gameID, int playerID){
-        players.add(new Player(""));              //adds a new player
+    public void addPlayer(Player p){
+        players.add(p);              //adds a new player
     }
 
     public ArrayList<Player> getPlayers() {

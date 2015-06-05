@@ -47,6 +47,7 @@ public class Server {
             games.add(g);                                                                  //adds it to the arraylist
             String response = games.size()-1 + "";                                         //sets the reponse to the last item in the arraylist
             httpserver.createContext("/games/" + response + "/status", new GetStatus(g));  //creates the status url using the game ID
+            httpserver.createContext("/games/" + response + "/join", new JoinGame(g));
             t.sendResponseHeaders(200, response.length());                                 //send the response
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                 //writes the reponse
@@ -109,6 +110,24 @@ public class Server {
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                         //writes the reponse
             os.close(); 
+        }
+    }
+    
+    static class JoinGame implements HttpHandler {
+        private Game game;                                                                         
+        
+    public JoinGame(Game game) {
+                this.game = game;                                                                      
+            }
+        
+        public void handle(HttpExchange t) throws IOException {   
+            HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
+            game.addPlayer(new Player(hm.get("name")));
+            String response = game.getPlayers().size()-1 + "";                                      
+            t.sendResponseHeaders(200, response.length());                                        
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());                                                        
+            os.close();
         }
     }
     
