@@ -54,6 +54,27 @@ p {
 	
 }
 
+.gameID {
+	font: 300 34px/1.8 'Raleway', sans-serif;
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin-left: 40%;
+	margin-right: 40%;
+	
+}
+
+.players {
+	font: 300 34px/1.8 'Raleway', sans-serif;
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin-left: 40%;
+	margin-right: 40%;
+}
+
 .home-buttons:hover {
 	font: 300 34px/1.8 'Raleway', sans-serif;
 	background-color: black;
@@ -88,6 +109,7 @@ p {
 	float: left; 
 	}
 	
+	
 #nav li a {
 	font: 300 14px/1.8 'Raleway', sans-serif;
 	display: block;
@@ -103,3 +125,29 @@ p {
 	background-color: #f5f5f5; }
 
 	
+
+
+#score {
+	font: 300 34px/1.8 'Raleway', sans-serif;
+	width: 100%;
+	float: inherit;
+	margin: 0px 0px 1px 8px;
+	padding: 0;
+	background-color: #ffffff;
+	border-bottom: 1px solid #ccc;  
+	}
+	
+#score ul {
+	font: 300 34px/1.8 'Raleway', sans-serif;
+	list-style: none;
+	margin: 0 auto;
+	padding: 0px 0px 0px 9px; 
+		background-color: #ffffff;
+	}
+	
+#score li {
+	font: 300 34px/1.8 'Raleway', sans-serif;
+	float: left; 
+	padding-left: 30px;
+	padding-right: 30px;
+	}

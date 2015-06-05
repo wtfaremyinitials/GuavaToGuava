@@ -92,10 +92,12 @@ class Scoreboard extends React.Component {
     render() {
         return (
             <div>
-                <p>Game ID - { this.props.gameid}</p>
+                <p className="gameID">Game ID:  { this.props.gameid}</p>
+                <div id="score">
                 <ul>
-                    { this.props.players.map(this.renderPlayer) }
-                </ul>  
+                    <li>{ this.props.players.map(this.renderPlayer) } </li>
+                </ul> 
+                </div> 
             </div>
         );
     }
@@ -115,13 +117,14 @@ class Hand extends React.Component {
     render() {
         return (
             <ul>
-                { this.props.hand.map((hand) => this.renderCard(hand)) }
+                <li className="gameID" { this.props.hand.map((hand) => this.renderCard(hand)) } </li>
             </ul>
         );
     }
     
     renderCard(cid) {
-        return <li key={ answers[cid] } onClick={ () => this.props.chooseCard(cid) }>{ answers[cid] }</li>;    
+        console.log(cid);
+        return <li className="gameID" key={ answers[cid] } onClick={ () => this.props.chooseCard(cid) }>{ answers[cid] }</li>;    
     }   
      
 }

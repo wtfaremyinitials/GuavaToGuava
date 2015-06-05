@@ -32,13 +32,13 @@ public class Server {
      * This method initializes the server, on http://localhost:8080
      */
     public static void main(String[] args) throws Exception {
-        games.add(new Game());                                              //creates an empty game to occupy the 0 slot. This is needed for the frond end
-        httpserver = HttpServer.create(new InetSocketAddress(8080), 0);     //creates a new server at http://localhost:8000
+        games.add(new Game());                                                  //creates an empty game to occupy the 0 slot. This is needed for the frond end
+        httpserver = HttpServer.create(new InetSocketAddress(8080), 0);         //creates a new server at http://localhost:8000
         httpserver.createContext("/api/games/create", new CreateGame());        //sets the url to create a new game
         httpserver.createContext("/api/games", new GameArray());                //sets the url to see active games
-        httpserver.createContext("/", new ServeStatic());             //serve static resources to client 
-        httpserver.setExecutor(null);                                       //creates a default executor
-        httpserver.start();                                                 //starts the server
+        httpserver.createContext("/", new ServeStatic());                       //serve static resources to client 
+        httpserver.setExecutor(null);                                           //creates a default executor
+        httpserver.start();                                                     //starts the server
     }
 
     //returns the games and status
@@ -55,8 +55,8 @@ public class Server {
             httpserver.createContext("/api/games/" + response + "/choose", new ChooseCard(g));
             t.sendResponseHeaders(200, response.length());                                 //send the response
             OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());                                                 //writes the reponse
-            os.close();                                                                    //closes the response
+            os.write(response.getBytes());                                                      //writes the reponse
+            os.close();                                                                         //closes the response
         }
     }
 
