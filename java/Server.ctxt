@@ -7,4 +7,5 @@ comment1.target=java.util.HashMap\ queryToMap(java.lang.String)
 comment1.text=\n\ This\ is\ the\ HashMap\ that\ handles\ the\ queries\ to\ the\ Map\n
 comment2.params=file
 comment2.target=java.lang.String\ readFile(java.lang.String)
+comment2.text=\n\ This\ is\ the\ public\ static\ string\ that\ reads\ files.\ It\ is\ needed\ to\ read\ the\ JSON\ data.\n
 numComments=3
