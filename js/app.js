@@ -36,7 +36,9 @@ class GuavasToGuavas extends React.Component {
     componentDidMount() {
         window.ref = this; 
         repeat(() => {
-            // get('/games/', status => this.setState(status));
+            if(!this.state.gid)
+                return;
+            get('/games/' + this.state.gid + '/status', { pid: this.state.pid }, status => this.setState(status));
         }, 1000);
     }
 
@@ -68,7 +70,7 @@ class GuavasToGuavas extends React.Component {
     }
     
     handleCreateGame() {
-        get('/games/create', {}, (err, gid) => this.joinGame(gid, prompt('Enter your name!!!!!!!')));
+        get('/games/create', {}, (err, gid) => this.joinGame(gid, prompt('Enter your name')));
     }
     
     joinGame(gid, name) {
@@ -76,7 +78,6 @@ class GuavasToGuavas extends React.Component {
     }
     
     handleChooseCard(cid) {
-        alert(cid);
         get('/games/' + this.state.gid + '/choose', { cid, pid: this.state.pid }, () => {});
     }
     

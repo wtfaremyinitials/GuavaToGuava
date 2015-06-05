@@ -34674,8 +34674,15 @@ var GuavasToGuavas = (function (_React$Component) {
     _createClass(GuavasToGuavas, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this = this;
+
             window.ref = this;
-            repeat(function () {}, 1000);
+            repeat(function () {
+                if (!_this.state.gid) return;
+                get('/games/' + _this.state.gid + '/status', { pid: _this.state.pid }, function (status) {
+                    return _this.setState(status);
+                });
+            }, 1000);
         }
     }, {
         key: 'render',
@@ -34685,7 +34692,7 @@ var GuavasToGuavas = (function (_React$Component) {
     }, {
         key: 'renderGame',
         value: function renderGame() {
-            var _this = this;
+            var _this2 = this;
 
             return React.createElement(
                 'div',
@@ -34693,14 +34700,14 @@ var GuavasToGuavas = (function (_React$Component) {
                 React.createElement(Scoreboard, { players: this.state.players }),
                 React.createElement('br', null),
                 React.createElement(Hand, { hand: this.state.hand, chooseCard: function (card) {
-                        return _this.handleChooseCard(card);
+                        return _this2.handleChooseCard(card);
                     } })
             );
         }
     }, {
         key: 'renderMenu',
         value: function renderMenu() {
-            var _this2 = this;
+            var _this3 = this;
 
             return React.createElement(
                 'div',
@@ -34708,14 +34715,14 @@ var GuavasToGuavas = (function (_React$Component) {
                 React.createElement(
                     'h1',
                     { className: 'home-buttons', onClick: function () {
-                            return _this2.handleJoinGame();
+                            return _this3.handleJoinGame();
                         } },
                     'Join Game'
                 ),
                 React.createElement(
                     'h1',
                     { className: 'home-buttons', onClick: function () {
-                            return _this2.handleCreateGame();
+                            return _this3.handleCreateGame();
                         } },
                     'Create Game'
                 )
@@ -34729,25 +34736,24 @@ var GuavasToGuavas = (function (_React$Component) {
     }, {
         key: 'handleCreateGame',
         value: function handleCreateGame() {
-            var _this3 = this;
+            var _this4 = this;
 
             get('/games/create', {}, function (err, gid) {
-                return _this3.joinGame(gid, prompt('Enter your name!!!!!!!'));
+                return _this4.joinGame(gid, prompt('Enter your name'));
             });
         }
     }, {
         key: 'joinGame',
         value: function joinGame(gid, name) {
-            var _this4 = this;
+            var _this5 = this;
 
             get('/games/' + gid + '/join', { name: name }, function (err, pid) {
-                return _this4.setState({ gid: gid, pid: pid });
+                return _this5.setState({ gid: gid, pid: pid });
             });
         }
     }, {
         key: 'handleChooseCard',
         value: function handleChooseCard(cid) {
-            alert(cid);
             get('/games/' + this.state.gid + '/choose', { cid: cid, pid: this.state.pid }, function () {});
         }
     }]);
@@ -34801,25 +34807,25 @@ var Hand = (function (_React$Component3) {
     _createClass(Hand, [{
         key: 'render',
         value: function render() {
-            var _this5 = this;
+            var _this6 = this;
 
             return React.createElement(
                 'ul',
                 null,
                 this.props.hand.map(function (hand) {
-                    return _this5.renderCard(hand);
+                    return _this6.renderCard(hand);
                 })
             );
         }
     }, {
         key: 'renderCard',
         value: function renderCard(cid) {
-            var _this6 = this;
+            var _this7 = this;
 
             return React.createElement(
                 'li',
                 { key: answers[cid], onClick: function () {
-                        return _this6.props.chooseCard(cid);
+                        return _this7.props.chooseCard(cid);
                     } },
                 answers[cid]
             );
@@ -34830,7 +34836,5 @@ var Hand = (function (_React$Component3) {
 })(React.Component);
 
 React.render(React.createElement(GuavasToGuavas, null), document.getElementById('game'));
-
-// get('/games/', status => this.setState(status));
 
 },{"got":50,"react":241}]},{},[242]);
