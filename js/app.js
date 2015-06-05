@@ -9,7 +9,6 @@ var get = function(endpoint, params, cb) {
     require('got')(BASE_API_URL + endpoint + params, (err, data) => cb(err, JSON.parse(data)));
 };
 
-
 var repeat = function(cb, interval) {
     cb();
     setInterval(cb, interval);
@@ -38,7 +37,7 @@ class GuavasToGuavas extends React.Component {
             // console.log(this.state);
             if(!this.state.gid)
                 return;
-            // get('/games/' + this.state.gid + '/status', { pid: this.state.pid }, (err, status) => this.setState(status));
+            get('/games/' + this.state.gid + '/status', { pid: this.state.pid }, (err, status) => this.setState(status));
         }, 500);
     }
 
