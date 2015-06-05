@@ -19,7 +19,7 @@ public class Deck
     {
         JSONArray read = null;                                       //sets the JSON array to null.
         try {
-            read = new JSONArray(readFile("../" + type + ".json"));  //reads the JSON file of the type passes in (it is either "answers" or "questions"
+            read = new JSONArray(readFile("../js/" + type + ".json"));  //reads the JSON file of the type passes in (it is either "answers" or "questions"
         } catch(Exception e) { e.printStackTrace(); }
         cards = new ArrayList<Card>();                               //creates the new arraylist of cards
         for(Object o : read.getArrayList())
