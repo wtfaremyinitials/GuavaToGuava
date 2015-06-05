@@ -34665,7 +34665,7 @@ var GuavasToGuavas = (function (_React$Component) {
         _get(Object.getPrototypeOf(GuavasToGuavas.prototype), 'constructor', this).call(this, props);
         this.state = {
             players: [],
-            hand: [],
+            cards: [],
             pid: null,
             gid: null
         };
@@ -34702,7 +34702,7 @@ var GuavasToGuavas = (function (_React$Component) {
                 { className: (this.state.players[this.state.pid] || { czar: false }).czar ? 'isczar' : 'isplayer' },
                 React.createElement(Scoreboard, { players: this.state.players, gameid: this.state.gid }),
                 React.createElement('br', null),
-                React.createElement(Hand, { hand: this.state.hand, chooseCard: function (card) {
+                React.createElement(Hand, { hand: this.state.cards, chooseCard: function (card) {
                         return _this2.handleChooseCard(card);
                     } })
             );

@@ -25,7 +25,7 @@ class GuavasToGuavas extends React.Component {
         super(props);
         this.state = {
             players: [],
-            hand: [],
+            cards: [],
             pid: null,
             gid: null
         };
@@ -50,7 +50,7 @@ class GuavasToGuavas extends React.Component {
             <div className={ (this.state.players[this.state.pid] || { czar : false }).czar ? 'isczar' : 'isplayer' }>
                 <Scoreboard players={ this.state.players } gameid={ this.state.gid }/>
                 <br />
-                <Hand hand={ this.state.hand } chooseCard={ card => this.handleChooseCard(card) } />
+                <Hand hand={ this.state.cards } chooseCard={ card => this.handleChooseCard(card) } />
             </div>
         );
     }
