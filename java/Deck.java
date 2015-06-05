@@ -17,7 +17,7 @@ public class Deck
      */
     public Deck(String type)
     {
-        JSONArray read = null;                                       //sets the JSON array to null.
+        JSONArray read = null;                                          //sets the JSON array to null.
         try {
             read = new JSONArray(readFile("../js/" + type + ".json"));  //reads the JSON file of the type passes in (it is either "answers" or "questions"
         } catch(Exception e) { e.printStackTrace(); }
