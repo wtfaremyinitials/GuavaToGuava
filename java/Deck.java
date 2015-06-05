@@ -21,9 +21,9 @@ public class Deck
         try {
             read = new JSONArray(readFile("../js/" + type + ".json"));  //reads the JSON file of the type passes in (it is either "answers" or "questions"
         } catch(Exception e) { e.printStackTrace(); }
-        cards = new ArrayList<Card>();                               //creates the new arraylist of cards
-        for(Object o : read.getArrayList())
-            cards.add(null);                                         //adds the card
+        cards = new ArrayList<Card>(); 
+        for(int i=0; i<read.getArrayList().size(); i++)
+            cards.add(new Card((String) read.getArrayList().get(i), i));                                         //adds the card
     }
 
     /**
