@@ -92,6 +92,8 @@ public class Server {
         }
 
         public void handle(HttpExchange t) throws IOException {
+            try {
+            
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());                 //creats a dual string HashMap
             int playerId = Integer.parseInt(hm.get("pid"));                                        //creates an int with an id of "pid"
             Player player = game.getPlayers().get(playerId);                                       //creates a player named player from the array of players  
@@ -127,6 +129,9 @@ public class Server {
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                         //writes the reponse
             os.close(); 
+             
+             
+            } catch(Exception e) { e.printStackTrace(); }
         }
     }
 
@@ -165,9 +170,12 @@ public class Server {
             if(pid == game.getCzar()) {
                 game.selectWinner(cid);
             } else {
+                System.out.println("pid " + pid);
+                System.out.println("cid " + cid);
                 game.selectCard(pid, cid);
+                System.out.println("selected");
             }
-            String response = game.getPlayers().size()-1 + "";                               //creates a response with the number of players
+            String response = "true";                               //creates a response with the number of players
             t.sendResponseHeaders(200, response.length());                                     
             OutputStream os = t.getResponseBody();                                           //send the response
             os.write(response.getBytes());                                                   //writes the reponse              
