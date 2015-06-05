@@ -21,7 +21,6 @@ public class Player
      * This method adds a taken card to the player's hand
      */
     public void takeCard(Card card){
-        System.out.println(card.getText());
         playerCards.add(card);     //adds a card to the player's hand
     }
 

@@ -82,7 +82,7 @@ public class Game
     public ArrayList<Player> getPlayers() {
         return players;                          //returns the players
     }
-
+    
     public boolean getIsReadyForCzar() {
         return selections.size() == players.size();
     }
