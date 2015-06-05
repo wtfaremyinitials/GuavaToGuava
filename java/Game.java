@@ -71,7 +71,7 @@ public class Game
      * game and with a given playerID
      */
     public void addPlayer(Player p){
-        players.add(p);              //adds a new player
+        players.add(p);                          //adds a new player
     }
 
     public ArrayList<Player> getPlayers() {

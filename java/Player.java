@@ -35,15 +35,21 @@ public class Player
      * This method returns the name of a player
      */
     public String getName() {
-        return name; //returns the name
+        return name;               //returns the name
     }
     
+    /**
+     * This method returns the score of a player
+     */
     public int getScore() {
-        return score;
+        return score;     //returns the score
     }
     
+    /**
+     * This method returns adds points to a players score
+     */
     public void addPoint() {
-        score++;
+        score++;          //adds a point to the score
     }
 
 }

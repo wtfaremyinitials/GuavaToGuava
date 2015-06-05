@@ -41,6 +41,9 @@ public class Server {
     }
 
     //returns the games and status
+    /**
+     * This class creates the game executor for the HTTPServer
+     */
     static class CreateGame implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
             Game g = new Game();                                                           //creates a new game "g"
@@ -56,6 +59,9 @@ public class Server {
     }
 
     //converts the array list of games into a string and returns it to the server
+    /**
+     * This class creates the Game Array executor for the HTTPServer
+     */
     static class GameArray implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
             JSONArray array = new JSONArray();                                             //creates a new JSONArray
@@ -72,28 +78,31 @@ public class Server {
     }
 
     //converts the array list of games into a string and returns it to the server
+     /**
+     * This class is the class that gets the status of a game for the HTTPServer
+     */
     static class GetStatus implements HttpHandler {
-        
+
         private Game game;                                                                         //creates a game
-        
+
         public GetStatus(Game game) {
             this.game = game;                                                                      //sets the game equals this.game
         }
-        
+
         public void handle(HttpExchange t) throws IOException {
             HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());                 //creats a dual string HashMap
             int playerId = Integer.parseInt(hm.get("pid"));                                        //creates an int with an id of "pid"
             Player player = game.getPlayers().get(playerId);                                       //creates a player named player from the array of players  
             JSONArray cardsArray = new JSONArray();                                                //creates a JSONArray called cardsArray
-            
+
             if(game.getCzar() != playerId) {                                                       //If the czar doesnt equal the playerID
                 for(Card c : player.getCards()) {                                                  //for loop that goes through the players cards
                     cardsArray.put(c.getId());                                                     //puts the card in the array
                 } 
             }    
-                    
+
             JSONArray playersArray = new JSONArray();                                              //creates a JSON playersArray
-            
+
             for(int i=0; i<game.getPlayers().size(); i++) {                                        //for loop that continues until i is less than the size of players     
                 JSONObject p = new JSONObject();                                                   //creates a new JSONObject
                 p.putOpt("name",  game.getPlayers().get(i).getName());                             //adds name to the name of the player
@@ -101,7 +110,7 @@ public class Server {
                 p.putOpt("czar",  i == game.getCzar());                                            //puts czar and null
                 playersArray.put(p);                                                               //puts p in the player's array
             }
-            
+
             JSONObject jsobj = new JSONObject();                                                   //creates a new jsobj
             jsobj.putOpt("players", playersArray);                                                 //puts players in the playersArray
             jsobj.putOpt("cards",   cardsArray);                                                   //puts players in the cardsArray
@@ -112,31 +121,37 @@ public class Server {
             os.close(); 
         }
     }
-    
+
+    /**
+     * This class is the Join Game executor for the HTTPServer
+     */
     static class JoinGame implements HttpHandler {
-        private Game game;                                                                         
-        
-    public JoinGame(Game game) {
-                this.game = game;                                                                      
-            }
-        
+        private Game game;                                                                   //creates a new private game called game      
+
+        public JoinGame(Game game) {
+            this.game = game;                                                                //sets this new game equal to a passed in one
+        }
+
         public void handle(HttpExchange t) throws IOException {   
-            HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
-            game.addPlayer(new Player(hm.get("name")));
-            String response = game.getPlayers().size()-1 + "";                                      
-            t.sendResponseHeaders(200, response.length());                                        
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());                                                        
+            HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());           //creates a new HashMap of strings equal to a query from a request
+            game.addPlayer(new Player(hm.get("name")));                                      //greates a new player with the ID name and adds it to the HashMap
+            String response = game.getPlayers().size()-1 + "";                               //creates a response with the number of players
+            t.sendResponseHeaders(200, response.length());                                     
+            OutputStream os = t.getResponseBody();                                           //send the response
+            os.write(response.getBytes());                                                   //writes the reponse              
             os.close();
         }
     }
-    
+
     // serves static resources to the client
+    /**
+     * This class is the Serve Static executor for the HTTPServer
+     */
     static class ServeStatic implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {   
-            String url = t.getRequestURI().getPath();                                   //sets the string url to get the url, querey, and path
+            String url = t.getRequestURI().getPath();                                              //sets the string url to get the url, querey, and path
             String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"                                       
-            String response =  readFile("../js/" + fileName);                                          //reads the hidden folder containt a given filename            
+            String response =  readFile("../js/" + fileName);                                      //reads the hidden folder containt a given filename            
             t.sendResponseHeaders(200, response.length());                                         
             OutputStream os = t.getResponseBody();                                                 //send the response
             os.write(response.getBytes());                                                         //writes the reponse             
@@ -144,6 +159,9 @@ public class Server {
         }
     }
 
+    /**
+     * This is the HashMap that handles the queries to the Map
+     */
     public static HashMap<String, String> queryToMap(String query){              
         HashMap<String, String> result = new HashMap<String, String>();           //creates the Hashmap
         for (String param : query.split("&")) {                                   //for loop to split the querey 
@@ -156,13 +174,13 @@ public class Server {
         }
         return result;                                                            //returns the result
     }
-    
+
     public static String readFile( String file ) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader (file));       //creates a new buffere reader
         String         line = null;                                               //sets a string line to null
         StringBuilder  stringBuilder = new StringBuilder();                       //creates a new string builder
         String         ls = System.getProperty("line.separator");                 //creates a line separator
-        
+
         while( ( line = reader.readLine() ) != null ) {                           //while the line does not equal null...
             stringBuilder.append( line );                                         //append the string builder with the string line
             stringBuilder.append( ls );                                           //append the string builder with the line separator
