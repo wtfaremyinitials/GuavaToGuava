@@ -34679,7 +34679,7 @@ var GuavasToGuavas = (function (_React$Component) {
             window.ref = this;
             repeat(function () {
                 if (!_this.state.gid) return;
-                get('/games/' + _this.state.gid + '/status', { pid: _this.state.pid }, function (status) {
+                get('/games/' + _this.state.gid + '/status', { pid: _this.state.pid }, function (err, status) {
                     return _this.setState(status);
                 });
             }, 1000);

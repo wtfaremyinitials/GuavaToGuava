@@ -38,7 +38,7 @@ class GuavasToGuavas extends React.Component {
         repeat(() => {
             if(!this.state.gid)
                 return;
-            get('/games/' + this.state.gid + '/status', { pid: this.state.pid }, status => this.setState(status));
+            get('/games/' + this.state.gid + '/status', { pid: this.state.pid }, (err, status) => this.setState(status));
         }, 1000);
     }
 
