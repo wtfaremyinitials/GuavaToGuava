@@ -1,4 +1,5 @@
 import java.util.ArrayList; //importing ArrayList
+import java.util.Map;
 public class Game
 {
     ArrayList<Player> players = new ArrayList<Player>(); //initializes the player ArrayList
@@ -6,6 +7,7 @@ public class Game
     Deck questionDeck; //creates the question deck
     Card currentQuestion; //creates the current question card
     int czar = -1; //sets the czar index to -1 because it is increased to 0 immediately
+    ArrayList<Card> selections;
     
     /**
      * Constructor for objects of class Game
@@ -17,9 +19,9 @@ public class Game
     {
         answerDeck = new Deck("answers");          //creates the answers deck
         questionDeck = new Deck("questions");      //creates the questions deck
-        dealCards();                               //deals the cards
         currentQuestion = questionDeck.dealCard(); //sets the current question equal to the next card
         rotateCzar();                              //rotates the czar
+        selections = new ArrayList<Card>();
     }
     
     /**
@@ -57,7 +59,7 @@ public class Game
      */
     private void dealCards()
     {
-        for (Player p: players){                 //goes through each player
+        for (Player p : players){                 //goes through each player
             for (int x = 0; x<5; x++){           //for loop for five cards
               p.takeCard(answerDeck.dealCard()); //deals the cards
             }
@@ -72,11 +74,36 @@ public class Game
      */
     public void addPlayer(Player p){
         players.add(p);                          //adds a new player
+        if(players.size() == 3) {
+            dealCards();
+        }
     }
 
     public ArrayList<Player> getPlayers() {
         return players;                          //returns the players
     }
 
+    public boolean getIsReadyForCzar() {
+        return selections.size() == players.size();
+    }
+
+
+    public ArrayList<Card> getSelections() {
+        return selections;
+    }
+    
+    public void selectCard(int pid, int cid) {
+        selections.set(pid, new Card(null, cid));
+    }
+    
+    public void selectWinner(int cid) {
+        for(int i=0; i<selections.size(); i++) {
+            if(selections.get(i).equals(cid)) {
+                players.get(i).addPoint();
+            }
+        }
+        selections = new ArrayList<Card>();
+        dealCards();
+    }
 
 }
