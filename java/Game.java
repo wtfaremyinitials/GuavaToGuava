@@ -35,6 +35,8 @@ public class Game
      * it resets it to zero.
      */
     private int rotateCzar(){
+        if(players.size() == 0)
+            return -1;
         if (czar == players.size()-1){            //checks if the current czar is the final player
           czar = 0;                               //if so, the czar is set to zero
         }
@@ -68,8 +70,8 @@ public class Game
      * This adds a player to a given 
      * game and with a given playerID
      */
-    private void addPlayer(int gameID, int playerID){
-        players.add(new Player(""));              //adds a new player
+    public void addPlayer(Player p){
+        players.add(p);              //adds a new player
     }
 
     public ArrayList<Player> getPlayers() {

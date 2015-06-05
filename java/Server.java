@@ -12,6 +12,8 @@ import com.sun.net.httpserver.HttpServer;
 //imports HashMap and ArrayLsit
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 /**
  * This is the server class, this runs and manages the creation of url's for the JSON
@@ -26,11 +28,11 @@ public class Server {
     private static HttpServer httpserver;                    //creates the http server
 
     /**
-     * This method initializes the server, on http://localhost:8000
+     * This method initializes the server, on http://localhost:8080
      */
     public static void main(String[] args) throws Exception {
         games.add(new Game());                                              //creates an empty game to occupy the 0 slot. This is needed for the frond end
-        httpserver = HttpServer.create(new InetSocketAddress(8000), 0);     //creates a new server at http://localhost:8000
+        httpserver = HttpServer.create(new InetSocketAddress(8080), 0);     //creates a new server at http://localhost:8000
         httpserver.createContext("/games/create", new CreateGame());        //sets the url to create a new game
         httpserver.createContext("/games", new GameArray());                //sets the url to see active games
         httpserver.createContext("/static", new ServeStatic());             //serve static resources to client 
@@ -45,6 +47,7 @@ public class Server {
             games.add(g);                                                                  //adds it to the arraylist
             String response = games.size()-1 + "";                                         //sets the reponse to the last item in the arraylist
             httpserver.createContext("/games/" + response + "/status", new GetStatus(g));  //creates the status url using the game ID
+            httpserver.createContext("/games/" + response + "/join", new JoinGame(g));
             t.sendResponseHeaders(200, response.length());                                 //send the response
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());                                                 //writes the reponse
@@ -110,12 +113,30 @@ public class Server {
         }
     }
     
+    static class JoinGame implements HttpHandler {
+        private Game game;                                                                         
+        
+    public JoinGame(Game game) {
+                this.game = game;                                                                      
+            }
+        
+        public void handle(HttpExchange t) throws IOException {   
+            HashMap<String, String> hm = queryToMap(t.getRequestURI().getQuery());
+            game.addPlayer(new Player(hm.get("name")));
+            String response = game.getPlayers().size()-1 + "";                                      
+            t.sendResponseHeaders(200, response.length());                                        
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());                                                        
+            os.close();
+        }
+    }
+    
     // serves static resources to the client
     static class ServeStatic implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {   
             String url = t.getRequestURI().getPath();                                   //sets the string url to get the url, querey, and path
             String fileName = url.substring(url.lastIndexOf('/')+1, url.length());                 //sets the filename to everything atfter a "/"                                       
-            String response =  readFile("./" + fileName);                                          //reads the hidden folder containt a given filename            
+            String response =  readFile("../js/" + fileName);                                          //reads the hidden folder containt a given filename            
             t.sendResponseHeaders(200, response.length());                                         
             OutputStream os = t.getResponseBody();                                                 //send the response
             os.write(response.getBytes());                                                         //writes the reponse             
@@ -136,20 +157,12 @@ public class Server {
         return result;                                                            //returns the result
     }
     
-<<<<<<< HEAD
     public static String readFile( String file ) throws IOException {
-        BufferedReader reader = new BufferedReader( new FileReader (file));
-        String         line = null;
-        StringBuilder  stringBuilder = new StringBuilder();
-        String         ls = System.getProperty("line.separator");
-=======
-    private String readFile( String file ) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader (file));       //creates a new buffere reader
         String         line = null;                                               //sets a string line to null
         StringBuilder  stringBuilder = new StringBuilder();                       //creates a new string builder
         String         ls = System.getProperty("line.separator");                 //creates a line separator
->>>>>>> f2c2c463edced61d6a65a401220dec83721a7c27
-
+        
         while( ( line = reader.readLine() ) != null ) {                           //while the line does not equal null...
             stringBuilder.append( line );                                         //append the string builder with the string line
             stringBuilder.append( ls );                                           //append the string builder with the line separator
