@@ -61,8 +61,10 @@ class GuavasToGuavas extends React.Component {
     renderMenu() {
         return (
             <div>
+            <center>
                 <h1 className="home-buttons" onClick={ () => this.handleJoinGame()   }>Join Game</h1>
                 <h1 className="home-buttons" onClick={ () => this.handleCreateGame() }>Create Game</h1>
+                </center>
             </div>
         );
     }
@@ -97,9 +99,11 @@ class Scoreboard extends React.Component {
             <div>
                 <p className="gameID">Game ID:  { this.props.gameid}</p>
                 <div id="score">
+                <center>
                 <ul>
                     <li>{ this.props.players.map(this.renderPlayer) } </li>
                 </ul> 
+                </center>
                 </div> 
             </div>
         );
